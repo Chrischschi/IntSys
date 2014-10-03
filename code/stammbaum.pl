@@ -56,6 +56,7 @@ kind_aus(don_juan,liselotte,elizabeth).
 mutter(Mutter, Kind):-kind_aus(_,Mutter, Kind).
 vater(Vater, Kind) :- kind_aus(Vater,_, Kind).
 eltern(Kind,Eltern) :- kind_aus(Vater,Mutter,Kind),Eltern=(Vater,Mutter).
+bruder(Person, Bruder) :- mann(Bruder),geschwister(Person, Bruder).
 %%   man kann nicht sein eingener bruder oder seine eigene schwester
 %%   sein, dies gilt egal ob vollgeschwister oder halbgeschwister.
 geschwister(Person1,Person2) :- vollgeschwister(Person1,Person2);halbgeschwister(Person1, Person2).
@@ -70,7 +71,12 @@ cousin(C1, C2) :- kind_aus(_V1,M1,C1), geschwister(M1,M2), kind_aus(_V2,M2,C2). 
 cousin(C1, C2) :- kind_aus(_V1,M1,C1), geschwister(M1,V2), kind_aus(V2,_M2,C2). %Mutter der cousine ist die schwester deines Vaters
 cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,V2), kind_aus(V2,_M2,C2). %vÃ¤ter sind geschwister
 cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,M2), kind_aus(_V2,M2,C2). %Vater der cousine ist ist der bruder deiner mutter
-
+neffe(Neffe, Person) :- mann(Neffe), (tante(Person,Neffe) ; onkel(Person,Neffe)).
+nichte(Nichte,Person) :- frau(Nichte), (tante(Person,Nichte) ; onkel(Person,Nichte)).
+onkel(Onkel, Person) :- mann(Onkel),  eltern(Person,(Vater,Mutter)), (geschwister(Vater,Onkel);geschwister(Mutter,Onkel)).
+tante(Tante, Person) :- frau(Tante), eltern(Person,(Vater,Mutter)), (geschwister(Vater,Tante);geschwister(Mutter,Tante)).
+  %% TODO herausfinden warum tante/2 alternative lösungen findet.
+grosstante(Grosstante, Person) :- eltern(Person,(Vater,Mutter)), (tante(Grosstante, Vater);tante(Grosstante, Mutter)). %%Großtante = Tante eines Elternteils, siehe wikipedia.org/wiki/verwandschaftsbeziehungen#gro.C3.9F-
 
 
 
