@@ -66,9 +66,9 @@ vollgeschwister(Person1, Person2) :- kind_aus(Vater, Mutter,Person1),kind_aus(Va
 %% gleichheitstest
 halbgeschwister(Person1,Person2) :- kind_aus(Vater1, Mutter1, Person1), kind_aus(Vater2, Mutter2, Person2),Person1 \= Person2, Vater1\=Vater2,Mutter1=Mutter2.
 halbgeschwister(Person1,Person2) :- kind_aus(Vater1, Mutter1, Person1), kind_aus(Vater2, Mutter2, Person2),Person1 \= Person2, Mutter1\=Mutter2,Vater1 = Vater2.
-cousin(C1, C2) :- kind_aus(_V1,M1,C1), geschwister(M1,M2), kind_aus(_V2,M2,C2). %mütter sind geschwister
+cousin(C1, C2) :- kind_aus(_V1,M1,C1), geschwister(M1,M2), kind_aus(_V2,M2,C2). %mÃ¼tter sind geschwister
 cousin(C1, C2) :- kind_aus(_V1,M1,C1), geschwister(M1,V2), kind_aus(V2,_M2,C2). %Mutter der cousine ist die schwester deines Vaters
-cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,V2), kind_aus(V2,_M2,C2). %väter sind geschwister
+cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,V2), kind_aus(V2,_M2,C2). %vÃ¤ter sind geschwister
 cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,M2), kind_aus(_V2,M2,C2). %Vater der cousine ist ist der bruder deiner mutter
 
 
