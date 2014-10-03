@@ -52,7 +52,7 @@ kind_aus(karl,liselotte,michael).
 kind_aus(don_juan,liselotte,elizabeth).
 
 %%%	REGELN
-
+nicht_verheiratet(Person1, Person2) :- \+ verheiratet(Person1,Person2).
 mutter(Mutter, Kind):-kind_aus(_,Mutter, Kind).
 vater(Vater, Kind) :- kind_aus(Vater,_, Kind).
 eltern(Kind,Eltern) :- kind_aus(Vater,Mutter,Kind),Eltern=(Vater,Mutter).
