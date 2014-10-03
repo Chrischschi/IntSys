@@ -53,4 +53,14 @@ kind_aus(don_juan,liselotte,elizabeth).
 
 %%%	REGELN
 
+mutter(Mutter, Kind):-kind_aus(_,Mutter, Kind).
+vater(Vater, Kind) :- kind_aus(Vater,_, Kind).
+eltern(Kind,Eltern) :- kind_aus(Vater,Mutter,Kind),Eltern=(Vater,Mutter).
+geschwister(Person1,Person2) :- vollgeschwister(Person1,Person2);halbgeschwister(Person1, Person2).
+vollgeschwister(Person1, Person2) :- kind_aus(Vater, Mutter,Person1),kind_aus(Vater,Mutter,Person2).
+halbgeschwister(Person1,Person2) :- kind_aus(Vater1, Mutter1, Person1),kind_aus(), kind_aus(Vater2, Mutter2, Person2), Vater1\=Vater2.
+halbgeschwister(Person1,Person2) :- kind_aus(Vater1, Mutter1, Person1),kind_aus(), kind_aus(Vater2, Mutter2, Person2), Mutter1\=Mutter2.
+
+
+
 
