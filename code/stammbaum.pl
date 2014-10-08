@@ -26,16 +26,15 @@ frau(liselotte).
 frau(elisabeth).
 
 %%  verheiratet und affäre symmetrisch?
+
+%%  Mann verheiratet mit frau definiert als fakt,
+% Frau verheiratet mit Mann definiert als regel.
 verheiratet(christoph,julia).
-verheiratet(julia,christoph).
 verheiratet(tony,simone).
-verheiratet(simone,tony).
-verheiratet(karla,siegfried).
 verheiratet(siegfried,karla).
 verheiratet(klaus,maria).
-verheiratet(maria,klaus).
 verheiratet(karl,liselotte).
-verheiratet(liselotte,karl).
+verheiratet(F,M) :- frau(F), mann(M), verheiratet(M,F).
 
 affaere(liselotte,don_juan).
 affaere(don_juan,liselotte).
@@ -72,7 +71,9 @@ cousin(C1, C2) :- kind_aus(_V1,M1,C1), geschwister(M1,V2), kind_aus(V2,_M2,C2). 
 cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,V2), kind_aus(V2,_M2,C2). %väter sind geschwister
 cousin(C1, C2) :- kind_aus(V1,_M1,C1), geschwister(V1,M2), kind_aus(_V2,M2,C2). %Vater der cousine ist ist der bruder deiner mutter
 neffe(Neffe, Person) :- mann(Neffe), (tante(Person,Neffe) ; onkel(Person,Neffe)).
-nichte(Nichte,Person) :- frau(Nichte), (tante(Person,Nichte) ; onkel(Person,Nichte)).
+% nichte(Nichte,Person) :- frau(Nichte), (tante(Person,Nichte) ;
+% onkel(Person,Nichte)).
+nichte(Nichte,Person) :- (tante(Person,Nichte) ; onkel(Person,Nichte)),  \+ mann(Nichte).
 onkel(Onkel, Person) :- mann(Onkel),  eltern(Person,(Vater,Mutter)), (geschwister(Vater,Onkel);geschwister(Mutter,Onkel)).
 tante(Tante, Person) :- frau(Tante), eltern(Person,(Vater,Mutter)), (geschwister(Vater,Tante);geschwister(Mutter,Tante)).
   %% TODO herausfinden warum tante/2 alternative lösungen findet.
