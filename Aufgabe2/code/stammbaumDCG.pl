@@ -46,7 +46,7 @@ test(antworten) :-
     ),
     antworten(
     [wer,ist,der,vater,von,siegfried],
-    [klaus,ist,der,vater,von,siegfried],
+    [klaus,ist,der,vater,von,siegfried]
     ),
     antworten(
     [wer,ist,der,onkel,von,simone],
@@ -54,7 +54,7 @@ test(antworten) :-
     ),
     antworten(
     [wer,ist,die,tante,von,simone],
-    [anna,ist,die,tante,von,simone],
+    [anna,ist,die,tante,von,simone]
     )
     .
 :- end_tests(stammbaumDCG).
