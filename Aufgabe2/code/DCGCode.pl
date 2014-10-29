@@ -4,7 +4,7 @@
 % 29.10.2014
 
 /* Diese Datei beinhält die definition der DCG, basierend auf der definition
- * auf seite 2 der Aufgabenstellung der Praktikumsaufgabe. /
+ * auf seite 2 der Aufgabenstellung der Praktikumsaufgabe. */
 %TODO aktionen hinzufügen
 
 % ----------------------- Non-terminale -----------------------------------
@@ -57,6 +57,9 @@ a --> [X], {lex(X,a)}.
 
 %Nomen 
 n --> [X], {lex(X,n)}. 
+
+%Präposition 
+p --> [X], {lex(X,p)}. 
 
 %Verb
 v --> [X], {lex(X,v)}.
