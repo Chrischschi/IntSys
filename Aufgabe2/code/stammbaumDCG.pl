@@ -41,6 +41,7 @@ test(antworten) :-
     [ist,klaus,der,vater,von,siegfried],
     [ja]
     ),
+    antworten(
     [ist,maria,die,mutter,von,michael],
     [nein]
     ),
