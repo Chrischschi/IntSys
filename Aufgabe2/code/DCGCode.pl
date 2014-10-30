@@ -31,6 +31,8 @@ pp --> p,np.
 %Präposition,<Bestandteile einer Nominalphrase wie oben aufgeführt>
 %Präposition,Eigenname
 pp --> p,e.
+%Präposition,Interrogativpronomen
+pp --> p,i.
 %Präposition,Artikel,Nomen
 pp --> p,a,n.
 %Präposition,Artikel,Nomen
