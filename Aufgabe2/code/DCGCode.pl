@@ -75,16 +75,16 @@ p(_,_) --> [X], {lex(X,_,p,_)}.
 v(SemV,N) --> [X], {lex(X,SemV,v,N)}.
 
 :- begin_tests('DCGCode').
-
-test(s) :-  %ergaenzungsfrage
+%ergaenzungsfragen
+test(s) :-
 	s(onkel(wer,simone),[wer,ist,der,onkel,von,simone],[]).
 
-test(s) :-  %ergaenzungsfrage
+%entscheidungsfrage
+test(s) :-
 	s(onkel(karl,simone),[ist,karl,der,onkel,von,simone],[]).
 
 test(s)	:-
 	s(onkel(richard,phillip),[ist,richard,der,onkel,von,phillip],[]).
-
 
 :- end_tests('DCGCode').
 
