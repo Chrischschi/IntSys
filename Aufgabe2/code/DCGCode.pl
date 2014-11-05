@@ -1,4 +1,4 @@
-%prolog 
+%prolog
 %Intelligente Systeme Praktikum 2
 %Christian Schirin, Timo Lange
 % 29.10.2014
@@ -9,60 +9,62 @@
 
 % ----------------------- Non-terminale -----------------------------------
 /*Ein satz ist eine nominalphrase gefolgt von einer Verbalphrase.*/
-s --> np,vp.
+s(SemS) -->
+  np(SemNP,N), vp(SemVP,N),
+  {SemVP = [_,SemNP|_], SemS =.. SemVP}.
 
-% "Eine Nominalphrase kann sein:" 
-% Eigenname 
-np --> e.
+% "Eine Nominalphrase kann sein:"
+% Eigenname
+np(SemN, N) --> e(SemN,N).
 
 % (Ergänzt) Interrogativpronomen
-np --> i.
+np(SemN, N) --> i(SemN, N).
 
 % Artikel, Nomen
-np --> a,n.
+np(SemN, N) --> a(_),n(SemN, N).
 
 % Artikel, Nomen, Präpositionalphrase
-np --> a,n,pp.  
+np(SemN, N) --> a(_),n(SemN, N),pp(SemN, N).
 
 % "Eine Präpositionalphrase kann sein:"
 % Präposition,Nominalphrase
-pp --> p,np.
+pp(SemPP, N) --> p(SemPP, N),np(SemPP, N).
 
 %Präposition,<Bestandteile einer Nominalphrase wie oben aufgeführt>
 %Präposition,Eigenname
-pp --> p,e.
+pp(SemPP, N) --> p(SemPP, N),e(SemPP, N).
 %Präposition,Interrogativpronomen
-pp --> p,i.
+pp(SemPP, N) --> p(SemPP, N),i(SemPP, N).
 %Präposition,Artikel,Nomen
-pp --> p,a,n.
+pp(SemPP, N) --> p(SemPP, N),a(_),n(SemPP, N).
 %Präposition,Artikel,Nomen
-pp --> p,a,n,pp.
+pp(SemPP, N) --> p(SemPP, N),a(_),n(SemPP, N),pp(SemPP, N).
 
 %Eine Verbalphrase kann sein:
-%Verb 
-vp --> v. 
+%Verb
+vp([SemV,_],N) --> v(SemV,N).
 
 %Verb,Nominalphrase
-vp --> v,np.
+vp([SemV,_,SemNP],N) --> v(SemV,N),np(SemNP,_).
 
 %-------------------------------Terminale--------------------------------------
 :- consult('lexikon.pl').
 
 %Eigenname
-e --> [X], {lex(X,e)}.
+e(SemE, N) --> [X], {lex(X,SemE,e,N)}.
 
-%Interrogativpronomen
-i --> [X], {lex(X,i)}. 
+%Interrogativpronomen(Ersetzt das Nomen bspw.: Wer,Was etc..)
+i(SemI,N) --> [X], {lex(X,SemI,i,N)}.
 
-%Artikel 
-a --> [X], {lex(X,a)}.
+%Artikel
+a(_) --> [X], {lex(X,_,a,_)}.
 
-%Nomen 
-n --> [X], {lex(X,n)}. 
+%Nomen
+n(SemN,N) --> [X], {lex(X,SemN,n,N)}.
 
-%Präposition 
-p --> [X], {lex(X,p)}. 
+%Präposition
+p(SemP,N) --> [X], {lex(X,SemP,p,N)}.
 
 %Verb
-v --> [X], {lex(X,v)}.
+v(SemV,N) --> [X], {lex(X,SemV,v,N)}.
 
