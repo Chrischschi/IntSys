@@ -11,8 +11,13 @@
 % ----------------------- Non-terminale -----------------------------------
 /*Ein satz ist eine nominalphrase gefolgt von einer Verbalphrase.*/
 s(SemS) -->
-  np(SemNP,N), vp(SemVP,N),
-  {SemVP = [_,SemNP|_], SemS =.. SemVP}.
+	i(_SemI,N),
+	vp(SemVP,N),
+	pp(SemPP,N),
+	{
+	    SemVP = [_,_,X],
+	    SemS =.. [X,_Y,SemPP]
+	}.
 
 % "Eine Nominalphrase kann sein:"
 % Eigenname

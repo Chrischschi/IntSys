@@ -35,14 +35,14 @@ lex(nichte,nichte,n,sg).
 lex(neffe,neffe,n,sg).
 lex(mann,mann,n,sg).
 lex(frau,frau,n,sg).
+lex(verheiratet,verheiratet,n,sg).
+lex(affaere,affaere,n,sg).
 
 %Präposition
 lex(von,von,p,_).
 lex(mit,mit,p,_).
 
 %Verben
-lex(verheiratet,verheiratet,v,sg).
-lex(affaere,affaere,v,sg).
 lex(ist,sein,v,sg). % "Wer _ist_ der Vater von Simone?"
 lex(sind,sein,v,sg).
 
