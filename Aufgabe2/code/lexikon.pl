@@ -8,7 +8,7 @@
  * fragen formulieren zu können. */
 %Eigenname. Die Namen kommen aus den fakten unserer Stammbaum-Datei.
 :- consult('../../Aufgabe1/code/stammbaum.pl'). %mann/1,frau/1 benötigt
-lex(Name,Name,e,sg).% :- mann(Name);frau(Name).
+lex(Name,Name,e,sg) :- mann(Name);frau(Name).
 
 %Interrogativpronomen
 lex(wer,wer,i,_). % "_Wer_ ist [...]"

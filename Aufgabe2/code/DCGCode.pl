@@ -1,3 +1,4 @@
+
 %prolog
 %Intelligente Systeme Praktikum 2
 %Christian Schirin, Timo Lange
@@ -24,21 +25,21 @@ np(SemN, N) --> i(SemN, N).
 np(SemN, N) --> a(_),n(SemN, N).
 
 % Artikel, Nomen, Präpositionalphrase
-np(SemN, N) --> a(_),n(SemN, N),pp(SemN, N).
+np(SemN, N) --> a(_),n(SemN, N),pp(_, N).
 
 % "Eine Präpositionalphrase kann sein:"
 % Präposition,Nominalphrase
-pp(SemPP, N) --> p(SemPP, N),np(SemPP, N).
+pp(SemPP, N) --> p(_, N),np(SemPP, N).
 
 %Präposition,<Bestandteile einer Nominalphrase wie oben aufgeführt>
 %Präposition,Eigenname
-pp(SemPP, N) --> p(SemPP, N),e(SemPP, N).
+pp(SemPP, N) --> p(_, N),e(SemPP, N).
 %Präposition,Interrogativpronomen
-pp(SemPP, N) --> p(SemPP, N),i(SemPP, N).
+pp(SemPP, N) --> p(_, N),i(SemPP, N).
 %Präposition,Artikel,Nomen
-pp(SemPP, N) --> p(SemPP, N),a(_),n(SemPP, N).
+pp(SemPP, N) --> p(_, N),a(_),n(SemPP, N).
 %Präposition,Artikel,Nomen
-pp(SemPP, N) --> p(SemPP, N),a(_),n(SemPP, N),pp(SemPP, N).
+pp(SemPP, N) --> p(_, N),a(_),n(SemPP, N),pp(_, N).
 
 %Eine Verbalphrase kann sein:
 %Verb
@@ -63,8 +64,25 @@ a(_) --> [X], {lex(X,_,a,_)}.
 n(SemN,N) --> [X], {lex(X,SemN,n,N)}.
 
 %Präposition
-p(SemP,N) --> [X], {lex(X,SemP,p,N)}.
+p(_,_) --> [X], {lex(X,_,p,_)}.
 
 %Verb
 v(SemV,N) --> [X], {lex(X,SemV,v,N)}.
+
+:- begin_tests('DCGCode').
+
+test(s) :-  %ergaenzungsfrage
+	s(onkel(wer,simone),[wer,ist,der,onkel,von,simone],[]).
+
+test(s) :-  %ergaenzungsfrage
+	s(onkel(karl,simone),[ist,karl,der,onkel,von,simone],[]).
+
+test(s)	:-
+	s(onkel(richard,phillip),[ist,richard,der,onkel,von,phillip],[]).
+
+
+:- end_tests('DCGCode').
+
+
+
 
