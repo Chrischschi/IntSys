@@ -10,6 +10,7 @@
 
 % ----------------------- Non-terminale -----------------------------------
 /*Ein satz ist eine nominalphrase gefolgt von einer Verbalphrase.*/
+% ergaenzungsfrage
 s(SemS) -->
 	i(_SemI,N),
 	vp(SemVP,N),
@@ -18,6 +19,16 @@ s(SemS) -->
 	    SemVP = [_,_,X],
 	    SemS =.. [X,_Y,SemPP]
 	}.
+%entscheidungsfrage
+s(SemS) -->
+	vp(_SemVP,N),
+	e(SemE,N),
+	np(SemNP,N),
+	pp(SemPP,N),
+	{
+	    SemS =.. [SemNP,SemE,SemPP]
+	}.
+
 
 % "Eine Nominalphrase kann sein:"
 % Eigenname
