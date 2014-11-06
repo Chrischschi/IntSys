@@ -18,7 +18,7 @@ frage_stellen :- read_sentence(FrageListe),
 %% hilfsfunktion um nicht DCG mit verarbeitung von Satzzeichen belasten
 %% zu müssen.
 filtere_satzzeichen([],[]).
-filtere_satzzeichen([Word|List],[Word|Gefiltert]) :- string_codes(Word,[FirstChar|_Rest]),FirstChar>96, FirstChar<123,
+filtere_satzzeichen([Word|List],[Word|Gefiltert]) :- Word \== '.', Word \== '!', Word \== '?',
 	filtere_satzzeichen(List,Gefiltert).
 filtere_satzzeichen([Word|List],Gefiltert) :- filtere_satzzeichen(List,Gefiltert).
 
