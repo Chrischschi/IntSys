@@ -1,34 +1,43 @@
 % prolog stammbaumDCG.pl
-% IS Praktikum 2 
+% IS Praktikum 2
 % Timo Lange, Christian Schirin
-% 29.Oktober.2014 
+% 29.Oktober.2014
 
-/* einstiegspunkt für die dcg-anwendung. 
-   beim aufrufen kann man eine frage stellen, welche 
+/* einstiegspunkt für die dcg-anwendung.
+   beim aufrufen kann man eine frage stellen, welche
    am besten mit ? aber auch möglich mit ! oder . abgeschlossen
-   wird. */  
-frage_stellen :- false.
- %TODO implementieren mit read_sentence/1, filtere_satzzeichen/2, antworten/2 und schreibe_satz/1  
+   wird. */
+:- consult('../beispielcode/readsentence.pl').
+:- consult('DCGCode.pl').
+frage_stellen :- read_sentence(FrageListe),
+	filtere_satzzeichen(FrageListe,GefilterteListe),
+	s(SemS,GefilterteListe,[]).
+ %TODO implementieren mit read_sentence/1, filtere_satzzeichen/2, antworten/2 und schreibe_satz/1
 
 %% filtere_satzzeichen(+Mit,-Ohne)
 %% hilfsfunktion um nicht DCG mit verarbeitung von Satzzeichen belasten
 %% zu müssen.
-filtere_satzzeichen(Mit,Ohne) :- false.
+filtere_satzzeichen([],[]).
+filtere_satzzeichen([Word|List],[Word|Gefiltert]) :- string_codes(Word,[FirstChar|_Rest]),FirstChar>96, FirstChar<123,
+	filtere_satzzeichen(List,Gefiltert).
+filtere_satzzeichen([Word|List],Gefiltert) :- filtere_satzzeichen(List,Gefiltert).
+
+
 
 %% antworten(+Frage, -Antwort)
-%% gibt eine antwort für eine als liste von atomen gegebene Fragesatz. 
+%% gibt eine antwort für eine als liste von atomen gegebene Fragesatz.
 %% Es werden Entscheidungsfragen und Ergänzungsfragen über den stammbaum aus
 %% Aufgabe 1 beantwortet.
-%% Parameter: 
-%% Frage - Ein satz als liste von atomen 
+%% Parameter:
+%% Frage - Ein satz als liste von atomen
 %% Antwort - Ein satz als liste von atomen
-antworten(Frage,Antwort) :- false. %TODO hier DCG Code verwenden 
+antworten(Frage,Antwort) :- false. %TODO hier DCG Code verwenden
 
-%% schreibe_satz(+Satz) 
+%% schreibe_satz(+Satz)
 %% Gibt einen satz auf der konsole aus
-%% Parameter: Satz - eine liste von atomen 
+%% Parameter: Satz - eine liste von atomen
 schreibe_satz([]). %Rekursionsabbruch
-schreibe_satz(Satz) :- false. %TODO hier write und rekursion verwenden. 
+schreibe_satz(Satz) :- false. %TODO hier write und rekursion verwenden.
 
 
 
@@ -36,7 +45,7 @@ schreibe_satz(Satz) :- false. %TODO hier write und rekursion verwenden.
 
 :- begin_tests(stammbaumDCG).
 
-test(antworten) :- 
+test(antworten) :-
     antworten(
     [ist,klaus,der,vater,von,siegfried],
     [ja]
