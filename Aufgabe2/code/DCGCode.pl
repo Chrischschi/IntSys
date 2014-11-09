@@ -11,7 +11,7 @@
 % ----------------------- Non-terminale -----------------------------------
 /*Ein satz ist eine nominalphrase gefolgt von einer Verbalphrase.*/
 % ergaenzungsfrage
-s(SemS) -->
+s(SemS,ergaenzungsfrage) -->
 	i(_SemI,N),
 	vp(SemVP,N),
 	pp(SemPP,N),
@@ -20,7 +20,7 @@ s(SemS) -->
 	    SemS =.. [X,_Y,SemPP]
 	}.
 %entscheidungsfrage
-s(SemS) -->
+s(SemS,entscheidungsfrage) -->
 	vp(_SemVP,N),
 	e(SemE,N),
 	np(SemNP,N),
@@ -88,14 +88,14 @@ v(SemV,N) --> [X], {lex(X,SemV,v,N)}.
 :- begin_tests('DCGCode').
 %ergaenzungsfragen
 test(s) :-
-	s(onkel(wer,simone),[wer,ist,der,onkel,von,simone],[]).
+	s(onkel(wer,simone),ergaenzungsfrage,[wer,ist,der,onkel,von,simone],[]).
 
 %entscheidungsfrage
 test(s) :-
-	s(onkel(karl,simone),[ist,karl,der,onkel,von,simone],[]).
+	s(onkel(karl,simone),entscheidungsfrage,[ist,karl,der,onkel,von,simone],[]).
 
 test(s)	:-
-	s(onkel(richard,phillip),[ist,richard,der,onkel,von,phillip],[]).
+	s(onkel(richard,phillip),entscheidungsfrage,[ist,richard,der,onkel,von,phillip],[]).
 
 :- end_tests('DCGCode').
 
