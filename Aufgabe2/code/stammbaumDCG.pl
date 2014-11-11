@@ -12,10 +12,9 @@
 frage_stellen :- read_sentence(FrageListe),
 	filtere_satzzeichen(FrageListe,GefilterteListe),
 	s(Sem,FrageTyp,GefilterteListe,[]), write(Sem), nl,
-	antworten(GefilterteListe,Sem,AntwortSatz,FrageTyp),
+	antworten(Sem,AntwortSatz,FrageTyp),
 	schreibe_satz(AntwortSatz),nl.
 
- %TODO implementieren mit read_sentence/1, filtere_satzzeichen/2, antworten/2 und schreibe_satz/1
 
 %% filtere_satzzeichen(+Mit,-Ohne)
 %% hilfsfunktion um nicht DCG mit verarbeitung von Satzzeichen belasten
