@@ -13,7 +13,8 @@ frage_stellen :- read_sentence(FrageListe),
 	filtere_satzzeichen(FrageListe,GefilterteListe),
 	s(Sem,FrageTyp,GefilterteListe,[]), write(Sem), nl,
 	antworten(Sem,AntwortSatz,FrageTyp),
-	schreibe_satz(AntwortSatz),nl.
+        append(AntwortSatz,['.'],AntwortSatzMitPunkt),
+	schreibe_satz(AntwortSatzMitPunkt),nl.
 
 
 %% filtere_satzzeichen(+Mit,-Ohne)
@@ -42,7 +43,13 @@ antworten(FrageP,Antwort,ergaenzungsfrage) :-
 	  formulieren. */
 	  FrageP, %% Frage an stammbaum stellen
           FrageP =.. [Beziehung,P1,P2],
-          Antwort = [P1,ist,der,Beziehung,von,P2].
+          artikel_aus_eigenname(AP1,P1), 
+          Antwort = [P1,ist,AP1,Beziehung,von,P2].
+
+%!  artikel_aus_eigenname(+Artikel:atom,-Eigenname:atom) is det 
+%   hilfsfunktion, um zu einem eigennamen den entsprechenden artikel zu finden.
+artikel_aus_eigenname(der,EigennameMaennlich) :- mann(EigennameMaennlich).
+artikel_aus_eigenname(die,EigennameWeiblich) :- frau(EigennameWeiblich).
 
 /*Entscheidungsfragen sind Ja-Nein Fragen
 	und lassen sich daher mit "Ja" und "Nein" beantworten.*/
@@ -56,7 +63,7 @@ antworten(FrageP,['Nein'],entscheidungsfrage) :- not(FrageP).
 %% Gibt einen satz auf der konsole aus
 %% Parameter: Satz - eine liste von atomen
 schreibe_satz([]). %Rekursionsabbruch
-schreibe_satz([Word|Rest]) :- write(Word),schreibe_satz(Rest). %TODO hier write und rekursion verwenden.
+schreibe_satz([Word|Rest]) :- write(Word),tab(1),schreibe_satz(Rest). %tab macht leerzeichen 
 
 
 
