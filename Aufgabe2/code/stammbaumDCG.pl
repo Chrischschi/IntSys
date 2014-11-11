@@ -37,7 +37,7 @@ filtere_satzzeichen([_Word|List],Gefiltert) :- filtere_satzzeichen(List,Gefilter
 %% Antwort - Ein satz als liste von atomen
 %% Fragetyp - Atom - wahl zwischen 'ergaenzungsfrage' und
 %% 'entscheidungsfrage'
-antworten(_Frage,_FrageP,_Antwort,ergaenzungsfrage) :-
+antworten(_FrageP,_Antwort,ergaenzungsfrage) :-
 	/* Ergaenzungsfragen haben die struktur "Wer ist der <Beziehung> von Y?"
 	  Antworten darauf lassen sich mit der Struktur  "X ist der <Beziehung> von Y"
 	  formulieren. */
@@ -45,8 +45,8 @@ antworten(_Frage,_FrageP,_Antwort,ergaenzungsfrage) :-
 
 /*Entscheidungsfragen sind Ja-Nein Fragen
 	und lassen sich daher mit "Ja" und "Nein" beantworten.*/
-antworten(_Frage,FrageP,['Ja'],entscheidungsfrage) :- FrageP.
-antworten(_Frage,FrageP,['Nein'],entscheidungsfrage) :- not(FrageP).
+antworten(FrageP,['Ja'],entscheidungsfrage) :- FrageP.
+antworten(FrageP,['Nein'],entscheidungsfrage) :- not(FrageP).
 	
 
 
@@ -65,35 +65,30 @@ schreibe_satz([Word|Rest]) :- write(Word),schreibe_satz(Rest). %TODO hier write 
 
 test(antworten) :-
     antworten(
-    [ist,klaus,der,vater,von,siegfried],
     vater(klaus,siegfried),
     ['Ja'],
     entscheidungsfrage
     ).
 test(antworten) :-
     antworten(
-    [ist,maria,die,mutter,von,michael],
     mutter(maria,michael),
     ['Nein'],
     entscheidungsfrage
     ).
 test(antworten) :-
     antworten(
-    [wer,ist,der,vater,von,siegfried],
     vater(_,siegfried),
     [klaus,ist,der,vater,von,siegfried],
     ergaenzungsfrage
     ).
 test(antworten) :-
     antworten(
-    [wer,ist,der,onkel,von,simone],
     onkel(_,simone),
     [karl,ist,der,onkel,von,simone],
     ergaenzungsfrage
     ).
 test(antworten) :-
     antworten(
-    [wer,ist,die,tante,von,simone],
     tante(_,simone),
     [anna,ist,die,tante,von,simone],
     ergaenzungsfrage
