@@ -68,7 +68,7 @@ vp([SemV,_,SemNP],Kon) --> v(SemV,Kon),np(SemNP,_).
 :- consult('lexikon.pl').
 
 %Eigenname
-e(SemE,Kon) --> [X], {lex(X,SemE,e,Kon)}.
+e(SemE,_) --> [X], {lex(X,SemE,e,_)}.
 
 %Interrogativpronomen(Ersetzt das Nomen bspw.: Wer,Was etc..)
 i(SemI,Kon) --> [X], {lex(X,SemI,i,Kon)}.
