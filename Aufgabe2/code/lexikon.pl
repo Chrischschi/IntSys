@@ -8,41 +8,43 @@
  * fragen formulieren zu können. */
 %Eigenname. Die Namen kommen aus den fakten unserer Stammbaum-Datei.
 :- consult('../../Aufgabe1/code/stammbaum.pl'). %mann/1,frau/1 benötigt
-lex(Name,Name,e,sg) :- mann(Name);frau(Name).
+%kon(Nummerus,Person,Genus)
+lex(Name,Name,e,kon(sg,3,m)) :- mann(Name).
+lex(Name,Name,e,kon(sg,3,f)) :- frau(Name).
 
 %Interrogativpronomen
-lex(wer,wer,i,_). % "_Wer_ ist [...]"
+lex(wer,wer,i,kon(_,_,_)). % "_Wer_ ist [...]"
 
 %Artikel
-lex(der,der,a,_).
-lex(die,die,a,_).
-lex(das,das,a,_).
-lex(ein,ein,a,_).
-lex(eine,eine,a,_).
+lex(der,der,a,kon(_,_,_)).
+lex(die,die,a,kon(_,_,_)).
+lex(das,das,a,kon(_,_,_)).
+lex(ein,ein,a,kon(_,_,_)).
+lex(eine,eine,a,kon(_,_,_)).
 
 %Nomen
-lex(mutter,mutter,n,sg). % "Wer ist die _Mutter_ von Simone?"
-lex(vater,vater,n,sg).
-lex(eltern,eltern,n,pl).
-lex(kind,kind,n,sg).
-lex(bruder,bruder,n,sg).
-lex(geschwister,geschwister,n,sg).
-lex(cousin,cousin,n,sg).
-lex(onkel,onkel,n,sg).
-lex(tante,tante,n,sg).
-lex(grosstante,grosstante,n,sg).
-lex(nichte,nichte,n,sg).
-lex(neffe,neffe,n,sg).
-lex(mann,mann,n,sg).
-lex(frau,frau,n,sg).
-lex(verheiratet,verheiratet,n,sg).
-lex(affaere,affaere,n,sg).
+lex(mutter,mutter,n,kon(sg,_,f)). % "Wer ist die _Mutter_ von Simone?"
+lex(vater,vater,n,kon(sg,_,m)).
+lex(eltern,eltern,n,kon(pl,_,_)).
+lex(kind,kind,n,kon(sg,_,n)).
+lex(bruder,bruder,n,kon(sg,_,m)).
+lex(geschwister,geschwister,n,kon(sg,_,_)).
+lex(cousin,cousin,n,kon(sg,_,m)).
+lex(onkel,onkel,n,kon(sg,_,m)).
+lex(tante,tante,n,kon(sg,_,f)).
+lex(grosstante,grosstante,n,kon(sg,_,f)).
+lex(nichte,nichte,n,kon(sg,_,f)).
+lex(neffe,neffe,n,kon(sg,_,m)).
+lex(mann,mann,n,kon(sg,_,m)).
+lex(frau,frau,n,kon(sg,_,f)).
+lex(verheiratet,verheiratet,n,kon(sg,_,_)).
+lex(affaere,affaere,n,kon(sg,_,_)).
 
 %Präposition
-lex(von,von,p,_).
-lex(mit,mit,p,_).
+lex(von,von,p,kon(_,_,_)).
+lex(mit,mit,p,kon(_,_,_)).
 
 %Verben
-lex(ist,sein,v,sg). % "Wer _ist_ der Vater von Simone?"
-lex(sind,sein,v,sg).
+lex(ist,sein,v,kon(sg,_,_)). % "Wer _ist_ der Vater von Simone?"
+lex(sind,sein,v,kon(sg,_,_)).
 
