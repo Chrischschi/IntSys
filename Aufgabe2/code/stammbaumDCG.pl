@@ -37,11 +37,13 @@ filtere_satzzeichen([_Word|List],Gefiltert) :- filtere_satzzeichen(List,Gefilter
 %% Antwort - Ein satz als liste von atomen
 %% Fragetyp - Atom - wahl zwischen 'ergaenzungsfrage' und
 %% 'entscheidungsfrage'
-antworten(_FrageP,_Antwort,ergaenzungsfrage) :-
+antworten(FrageP,Antwort,ergaenzungsfrage) :-
 	/* Ergaenzungsfragen haben die struktur "Wer ist der <Beziehung> von Y?"
 	  Antworten darauf lassen sich mit der Struktur  "X ist der <Beziehung> von Y"
 	  formulieren. */
-	  fail.
+	  FrageP, %% Frage an stammbaum stellen
+          FrageP =.. [Beziehung,P1,P2],
+          Antwort = [P1,ist,der,Beziehung,von,P2].
 
 /*Entscheidungsfragen sind Ja-Nein Fragen
 	und lassen sich daher mit "Ja" und "Nein" beantworten.*/
