@@ -27,12 +27,11 @@ filtere_satzzeichen([_Word|List],Gefiltert) :- filtere_satzzeichen(List,Gefilter
 
 
 
-%% antworten(+Frage,+FrageP, -Antwort,+Fragetyp)
-%% gibt eine antwort für eine als liste von atomen gegebene Fragesatz.
+%% antworten(+FrageP, -Antwort,+Fragetyp)
+%% gibt eine antwort für eine als prädikat gegebene frage.
 %% Es werden Entscheidungsfragen und Ergänzungsfragen über den stammbaum aus
 %% Aufgabe 1 beantwortet.
 %% Parameter:
-%% Frage - Ein satz als liste von atomen
 %% FrageP - Die semantik des satzes aus dem parameter darüber
 %% Antwort - Ein satz als liste von atomen
 %% Fragetyp - Atom - wahl zwischen 'ergaenzungsfrage' und
