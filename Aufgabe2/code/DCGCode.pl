@@ -12,13 +12,13 @@
 /*Ein satz ist eine nominalphrase gefolgt von einer Verbalphrase.*/
 % ergaenzungsfrage
 s(SemS,ergaenzungsfrage) -->
-	i(_SemI),
+	i(_),
 	vp(SemVP), %vormals SemVP 
 	%hier vormlals pp(SemPP)
 	{
 	    SemVP = [_,_,SemVP_NP],
-	    SemVP_NP = [
-	    SemS =.. [SemVP_NP,_,SemPP]
+	    SemVP_NP = [SemVP_NP_N,[NP_N,NP_PP]],io:format(SemVP_NP_N),
+	    SemS =.. [NP_N,_,NP_PP]
 	}.
 %entscheidungsfrage
 s(SemS,entscheidungsfrage) -->
