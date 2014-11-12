@@ -12,18 +12,18 @@
 /*Ein satz ist eine nominalphrase gefolgt von einer Verbalphrase.*/
 % ergaenzungsfrage
 s(SemS,ergaenzungsfrage) -->
-	i(_SemI,N),
-	vp(SemVP,N),
-	pp(SemPP,N),
+	i(_SemI),
+	vp(SemVP),
+	pp(SemPP),
 	{
 	    SemVP = [_,_,X],
 	    SemS =.. [X,_Y,SemPP]
 	}.
 %entscheidungsfrage
 s(SemS,entscheidungsfrage) -->
-	vp(_SemVP,N), %_SemVP
-	np(SemNP1,N), %SemE
-	np(SemNP2,N), %SemNP, SemPP
+	vp(_SemVP), %_SemVP
+	np(SemNP1), %SemE
+	np(SemNP2), %SemNP, SemPP
 	{
 		SemNP2 = [SemNP2_N,SemNP2_PP],
 	    SemS =.. [SemNP2_N,SemNP1,SemNP2_PP] %[SemNP,SemE,SemPP]
@@ -32,58 +32,58 @@ s(SemS,entscheidungsfrage) -->
 
 % "Eine Nominalphrase kann sein:"
 % Eigenname
-np(SemN, N) --> e(SemN,N).
+np(SemN) --> e(SemN).
 
 % (Ergänzt) Interrogativpronomen
-np(SemN, N) --> i(SemN, N).
+np(SemN) --> i(SemN).
 
 % Artikel, Nomen
-np(SemN, N) --> a(_),n(SemN, N).
+np(SemN) --> a(_),n(SemN).
 
 % Artikel, Nomen, Präpositionalphrase
-np(SemN, N) --> a(_),n(SemN, N),pp(_, N).
+np(SemN) --> a(_),n(SemN),pp(_).
 
 % "Eine Präpositionalphrase kann sein:"
 % Präposition,Nominalphrase
-pp(SemPP, N) --> p(_, N),np(SemPP, N).
+pp(SemPP) --> p(_),np(SemPP).
 
 %Präposition,<Bestandteile einer Nominalphrase wie oben aufgeführt>
 %Präposition,Eigenname
-pp(SemPP, N) --> p(_, N),e(SemPP, N).
+pp(SemPP) --> p(_),e(SemPP).
 %Präposition,Interrogativpronomen
-pp(SemPP, N) --> p(_, N),i(SemPP, N).
+pp(SemPP) --> p(_),i(SemPP).
 %Präposition,Artikel,Nomen
-pp(SemPP, N) --> p(_, N),a(_),n(SemPP, N).
+pp(SemPP) --> p(_),a(_),n(SemPP).
 %Präposition,Artikel,Nomen
-pp(SemPP, N) --> p(_, N),a(_),n(SemPP, N),pp(_, N).
+pp(SemPP) --> p(_),a(_),n(SemPP),pp(_).
 
 %Eine Verbalphrase kann sein:
 %Verb
 vp([SemV,_],N) --> v(SemV,N).
 
 %Verb,Nominalphrase
-vp([SemV,_,SemNP],N) --> v(SemV,N),np(SemNP,_).
+vp([SemV,_,SemNP]) --> v(SemV,N),np(SemNP,_).
 
 %-------------------------------Terminale--------------------------------------
 :- consult('lexikon.pl').
 
 %Eigenname
-e(SemE, N) --> [X], {lex(X,SemE,e,N)}.
+e(SemE) --> [X], {lex(X,SemE,e)}.
 
 %Interrogativpronomen(Ersetzt das Nomen bspw.: Wer,Was etc..)
-i(SemI,N) --> [X], {lex(X,SemI,i,N)}.
+i(SemI) --> [X], {lex(X,SemI,i)}.
 
 %Artikel
-a(_) --> [X], {lex(X,_,a,_)}.
+a(_) --> [X], {lex(X,_,a)}.
 
 %Nomen
-n(SemN,N) --> [X], {lex(X,SemN,n,N)}.
+n(SemN) --> [X], {lex(X,SemN,n)}.
 
 %Präposition
-p(_,_) --> [X], {lex(X,_,p,_)}.
+p(_) --> [X], {lex(X,_,p)}.
 
 %Verb
-v(SemV,N) --> [X], {lex(X,SemV,v,N)}.
+v(SemV) --> [X], {lex(X,SemV,v)}.
 
 :- begin_tests('DCGCode').
 %ergaenzungsfragen
