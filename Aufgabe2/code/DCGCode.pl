@@ -13,11 +13,12 @@
 % ergaenzungsfrage
 s(SemS,ergaenzungsfrage) -->
 	i(_SemI),
-	vp(SemVP),
-	pp(SemPP),
+	vp(SemVP), %vormals SemVP 
+	%hier vormlals pp(SemPP)
 	{
-	    SemVP = [_,_,X],
-	    SemS =.. [X,_Y,SemPP]
+	    SemVP = [_,_,SemVP_NP],
+	    SemVP_NP = [
+	    SemS =.. [SemVP_NP,_,SemPP]
 	}.
 %entscheidungsfrage
 s(SemS,entscheidungsfrage) -->
@@ -88,7 +89,7 @@ v(SemV) --> [X], {lex(X,SemV,v)}.
 :- begin_tests('DCGCode').
 %ergaenzungsfragen
 test(s) :-
-	s(onkel(wer,simone),ergaenzungsfrage,[wer,ist,der,onkel,von,simone],[]).
+	s(onkel(_,simone),ergaenzungsfrage,[wer,ist,der,onkel,von,simone],[]).
 
 %entscheidungsfrage
 test(s) :-
