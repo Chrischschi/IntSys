@@ -42,7 +42,7 @@ np(SemN) --> i(SemN).
 np(SemN) --> a(_),n(SemN).
 
 % Artikel, Nomen, Präpositionalphrase
-np(SemN) --> a(_),n(SemN),pp(_).
+np([SemN,SemPP]) --> a(_),n(SemN),pp(SemPP).
 
 % "Eine Präpositionalphrase kann sein:"
 % Präposition,Nominalphrase
