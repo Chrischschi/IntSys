@@ -16,11 +16,12 @@ lex(Name,Name,e,kon(sg,3,f)) :- frau(Name).
 lex(wer,wer,i,kon(_,_,_)). % "_Wer_ ist [...]"
 
 %Artikel
-lex(der,der,a,kon(_,_,_)).
-lex(die,die,a,kon(_,_,_)).
-lex(das,das,a,kon(_,_,_)).
-lex(ein,ein,a,kon(_,_,_)).
-lex(eine,eine,a,kon(_,_,_)).
+lex(der,der,a,kon(_,_,m)).
+lex(die,die,a,kon(sg,_,f)).
+lex(die,die,a,kon(pl,_,_)).
+lex(das,das,a,kon(sg,_,n)).
+lex(ein,ein,a,kon(sg,_,_)).
+lex(eine,eine,a,kon(pl,_,_)).
 
 %Nomen
 lex(mutter,mutter,n,kon(sg,_,f)). % "Wer ist die _Mutter_ von Simone?"

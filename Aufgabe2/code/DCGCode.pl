@@ -21,12 +21,12 @@ s(SemS,ergaenzungsfrage) -->
 	}.
 %entscheidungsfrage
 s(SemS,entscheidungsfrage) -->
-	vp(_SemVP,N),
-	e(SemE,N),
-	np(SemNP,N),
-	pp(SemPP,N),
+	vp(_SemVP,N), %_SemVP
+	np(SemNP1,N), %SemE
+	np(SemNP2,N), %SemNP, SemPP
 	{
-	    SemS =.. [SemNP,SemE,SemPP]
+		SemNP2 = [SemNP2_N,SemNP2_PP],
+	    SemS =.. [SemNP2_N,SemNP1,SemNP2_PP] %[SemNP,SemE,SemPP]
 	}.
 
 
