@@ -16,8 +16,8 @@ s(SemS,ergaenzungsfrage) -->
 	vp(SemVP), %vormals SemVP 
 	%hier vormlals pp(SemPP)
 	{
-	    SemVP = [_,_,SemVP_NP],
-	    SemVP_NP = [SemVP_NP_N,[NP_N,NP_PP]],io:format(SemVP_NP_N),
+	    SemVP = [NP_N,NP_PP],
+	    % SemVP_NP = [SemVP_NP_N,[NP_N,NP_PP]],io:format(SemVP_NP_N),
 	    SemS =.. [NP_N,_,NP_PP]
 	}.
 %entscheidungsfrage
@@ -63,7 +63,7 @@ pp(SemPP) --> p(_),a(_),n(SemPP),pp(_).
 vp([SemV,_]) --> v(SemV).
 
 %Verb,Nominalphrase
-vp([SemV,_,SemNP]) --> v(SemV),np(SemNP).
+vp(SemV) --> v(_),np(SemV).
 
 %-------------------------------Terminale--------------------------------------
 :- consult('lexikon.pl').
@@ -91,12 +91,18 @@ v(SemV) --> [X], {lex(X,SemV,v)}.
 test(s) :-
 	s(onkel(_,simone),ergaenzungsfrage,[wer,ist,der,onkel,von,simone],[]).
 
+test(s) :- 
+    s(cousin(_,simone),ergaenzungsfrage,[wer,ist,der,cousin,von,simone],[]).
+
 %entscheidungsfrage
 test(s) :-
 	s(onkel(karl,simone),entscheidungsfrage,[ist,karl,der,onkel,von,simone],[]).
 
 test(s)	:-
 	s(onkel(richard,phillip),entscheidungsfrage,[ist,richard,der,onkel,von,phillip],[]).
+	
+test(s) :- 
+    s(cousin(michael,simone),entscheidungsfrage,[ist,michael,der,cousin,von,simone],[]).
 
 :- end_tests('DCGCode').
 
