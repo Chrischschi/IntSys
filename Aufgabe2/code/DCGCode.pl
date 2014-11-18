@@ -72,19 +72,19 @@ vp(SemV) --> v(_),np(SemV).
 e(SemE) --> [X], {lex(X,SemE,e)}.
 
 %Interrogativpronomen(Ersetzt das Nomen bspw.: Wer,Was etc..)
-i(SemI) --> [X], {lex(X,SemI,i)}.
+i(SemI) --> [X], {lex(X,SemI,i,_)}.
 
 %Artikel
-a(_) --> [X], {lex(X,_,a)}.
+a(_) --> [X], {lex(X,_,a,_)}.
 
 %Nomen
-n(SemN) --> [X], {lex(X,SemN,n)}.
+n(SemN) --> [X], {lex(X,SemN,n,_)}.
 
 %Präposition
-p(_) --> [X], {lex(X,_,p)}.
+p(_) --> [X], {lex(X,_,p,_)}.
 
 %Verb
-v(SemV) --> [X], {lex(X,SemV,v)}.
+v(SemV) --> [X], {lex(X,SemV,v,_)}.
 
 :- begin_tests('DCGCode').
 %ergaenzungsfragen

@@ -13,39 +13,39 @@ lex(Name,Name,e) :- mann(Name).
 lex(Name,Name,e) :- frau(Name).
 
 %Interrogativpronomen
-lex(wer,wer,i). % "_Wer_ ist [...]"
+lex(wer,wer,i,_). % "_Wer_ ist [...]"
 
 %Artikel
-lex(der,der,a).
-lex(die,die,a).
-lex(die,die,a).
-lex(das,das,a).
-lex(ein,ein,a).
-lex(eine,eine,a).
+lex(der,der,a,sg).
+lex(die,die,a,pl).
+lex(die,die,a,sg).
+lex(das,das,a,sg).
+lex(ein,ein,a,_).
+lex(eine,eine,a,_).
 
 %Nomen
-lex(mutter,mutter,n). % "Wer ist die _Mutter_ von Simone?"
-lex(vater,vater,n).
-lex(eltern,eltern,n).
-lex(kind,kind,n).
-lex(bruder,bruder,n).
-lex(geschwister,geschwister,n).
-lex(cousin,cousin,n).
-lex(onkel,onkel,n).
-lex(tante,tante,n).
-lex(grosstante,grosstante,n).
-lex(nichte,nichte,n).
-lex(neffe,neffe,n).
-lex(mann,mann,n).
-lex(frau,frau,n).
-lex(verheiratet,verheiratet,n).
-lex(affaere,affaere,n).
+lex(mutter,mutter,n,sg). % "Wer ist die _Mutter_ von Simone?"
+lex(vater,vater,n,sg).
+lex(eltern,eltern,n,pl).
+lex(kind,kind,n,sg).
+lex(bruder,bruder,n,sg).
+lex(geschwister,geschwister,n,sg).
+lex(cousin,cousin,n,sg).
+lex(onkel,onkel,n,sg).
+lex(tante,tante,n,sg).
+lex(grosstante,grosstante,n,sg).
+lex(nichte,nichte,n,sg).
+lex(neffe,neffe,n,sg).
+lex(mann,mann,n,sg).
+lex(frau,frau,n,sg).
+lex(verheiratet,verheiratet,n,sg).
+lex(affaere,affaere,n,sg).
 
 %Präposition
-lex(von,von,p).
-lex(mit,mit,p).
+lex(von,von,p,_).
+lex(mit,mit,p,_).
 
 %Verben
-lex(ist,sein,v). % "Wer _ist_ der Vater von Simone?"
-lex(sind,sein,v).
+lex(ist,sein,v,sg). % "Wer _ist_ der Vater von Simone?"
+lex(sind,sein,v,pl).
 
