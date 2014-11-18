@@ -40,22 +40,33 @@ antworten(FrageP,Antwort,ergaenzungsfrage) :-
 	/* Ergaenzungsfragen haben die struktur "Wer ist der <Beziehung> von Y?"
 	  Antworten darauf lassen sich mit der Struktur  "X ist der <Beziehung> von Y"
 	  formulieren. */
-	  FrageP, %% Frage an stammbaum stellen
           FrageP =.. [Beziehung,P1,P2],
-          artikel_aus_eigenname(AP1,P1), 
-          Antwort = [P1,ist,AP1,Beziehung,von,P2].
+            setof(P1,FrageP,Personen) -> %% Frage an stammbaum stellen
+          lex(Beziehung,_,n,Numerus),
+          lex(Verb,_,v,Numerus),
+          lex(Artikel,_,a,Numerus),
+          append(Personen,[Verb,Artikel,Beziehung,von,P2],Antwort);
+          
+            not(setof(P1,FrageP,Personen)),
+            FrageP =.. [Beziehung,P1,P2],
+            Antwort = [P2,hat,keine,Beziehung]
+          . 
+
+/*Entscheidungsfragen sind Ja-Nein Fragen
+    und lassen sich daher mit "Ja" und "Nein" beantworten.*/
+antworten(FrageP,['Ja'],entscheidungsfrage) :- FrageP.
+antworten(FrageP,['Nein'],entscheidungsfrage) :- not(FrageP).
 
 %!  artikel_aus_eigenname(+Artikel:atom,-Eigenname:atom) is det 
 %   hilfsfunktion, um zu einem eigennamen den entsprechenden artikel zu finden.
-artikel_aus_eigenname(der,EigennameMaennlich) :- mann(EigennameMaennlich).
-artikel_aus_eigenname(die,EigennameWeiblich) :- frau(EigennameWeiblich).
+%%artikel_aus_eigenname(der,EigennameMaennlich) :- mann(EigennameMaennlich).
+%%artikel_aus_eigenname(die,EigennameWeiblich) :- frau(EigennameWeiblich).
+%%artikel_aus_eigenname(die,(Vater,Mutter)) :- mann(Vater),frau(Mutter).
 
-/*Entscheidungsfragen sind Ja-Nein Fragen
-	und lassen sich daher mit "Ja" und "Nein" beantworten.*/
-antworten(FrageP,['Ja'],entscheidungsfrage) :- FrageP.
-antworten(FrageP,['Nein'],entscheidungsfrage) :- not(FrageP).
-	
+tupelZweiZuListe((First,Second),[First,Second]).
 
+%%listeMitUnd([],[]).
+%%listeMitUnd([Word|Rest],ListeMit) :- listeMitUnd(Rest,[Word,'und'|ListeMit]).
 
 
 %% schreibe_satz(+Satz)

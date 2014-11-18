@@ -29,7 +29,7 @@ lex(vater,vater,n,sg).
 lex(eltern,eltern,n,pl).
 lex(kind,kind,n,sg).
 lex(bruder,bruder,n,sg).
-lex(geschwister,geschwister,n,sg).
+lex(geschwister,geschwister,n,pl).
 lex(cousin,cousin,n,sg).
 lex(onkel,onkel,n,sg).
 lex(tante,tante,n,sg).
