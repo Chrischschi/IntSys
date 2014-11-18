@@ -54,8 +54,8 @@ kind_aus(don_juan,liselotte,elizabeth).
 nicht_verheiratet(Person1, Person2) :- \+ verheiratet(Person1,Person2).
 mutter(Mutter, Kind):-kind_aus(_,Mutter, Kind).
 vater(Vater, Kind) :- kind_aus(Vater,_, Kind).
-eltern(Kind,Eltern) :- kind_aus(Vater,Mutter,Kind),Eltern=(Vater,Mutter).
-bruder(Person, Bruder) :- mann(Bruder),geschwister(Person, Bruder).
+eltern(Eltern,Kind) :- kind_aus(Vater,Mutter,Kind),Eltern=(Vater,Mutter).
+bruder(Bruder,Person) :- mann(Bruder),geschwister(Person, Bruder).
 %%   man kann nicht sein eingener bruder oder seine eigene schwester
 %%   sein, dies gilt egal ob vollgeschwister oder halbgeschwister.
 geschwister(Person1,Person2) :- vollgeschwister(Person1,Person2);halbgeschwister(Person1, Person2).
@@ -74,10 +74,10 @@ neffe(Neffe, Person) :- mann(Neffe), (tante(Person,Neffe) ; onkel(Person,Neffe))
 % nichte(Nichte,Person) :- frau(Nichte), (tante(Person,Nichte) ;
 % onkel(Person,Nichte)).
 nichte(Nichte,Person) :- (tante(Person,Nichte) ; onkel(Person,Nichte)),  \+ mann(Nichte).
-onkel(Onkel, Person) :- mann(Onkel),  eltern(Person,(Vater,Mutter)), (geschwister(Vater,Onkel);geschwister(Mutter,Onkel)).
-tante(Tante, Person) :- frau(Tante), eltern(Person,(Vater,Mutter)), (geschwister(Vater,Tante);geschwister(Mutter,Tante)).
+onkel(Onkel, Person) :- mann(Onkel),  eltern((Vater,Mutter),Person), (geschwister(Vater,Onkel);geschwister(Mutter,Onkel)).
+tante(Tante, Person) :- frau(Tante), eltern((Vater,Mutter),Person), (geschwister(Vater,Tante);geschwister(Mutter,Tante)).
   %% TODO herausfinden warum tante/2 alternative lösungen findet.
-grosstante(Grosstante, Person) :- eltern(Person,(Vater,Mutter)), (tante(Grosstante, Vater);tante(Grosstante, Mutter)). %%Großtante = Tante eines Elternteils, siehe wikipedia.org/wiki/verwandschaftsbeziehungen#gro.C3.9F-
+grosstante(Grosstante, Person) :- eltern((Vater,Mutter),Person), (tante(Grosstante, Vater);tante(Grosstante, Mutter)). %%Großtante = Tante eines Elternteils, siehe wikipedia.org/wiki/verwandschaftsbeziehungen#gro.C3.9F-
 
 
 
