@@ -39,10 +39,10 @@ np(SemN) --> e(SemN).
 np(SemN) --> i(SemN).
 
 % Artikel, Nomen
-np(SemN) --> a(_),n(SemN).
+np(SemN) --> a(_,Genus),n(SemN,Genus).
 
 % Artikel, Nomen, Präpositionalphrase
-np([SemN,SemPP]) --> a(_),n(SemN),pp(SemPP).
+np([SemN,SemPP]) --> a(_,Genus),n(SemN,Genus),pp(SemPP).
 
 % "Eine Präpositionalphrase kann sein:"
 % Präposition,Nominalphrase
@@ -54,9 +54,9 @@ pp(SemPP) --> p(_),e(SemPP).
 %Präposition,Interrogativpronomen
 pp(SemPP) --> p(_),i(SemPP).
 %Präposition,Artikel,Nomen
-pp(SemPP) --> p(_),a(_),n(SemPP).
+pp(SemPP) --> p(_),a(_,Genus),n(SemPP,Genus).
 %Präposition,Artikel,Nomen
-pp(SemPP) --> p(_),a(_),n(SemPP),pp(_).
+pp(SemPP) --> p(_),a(_,Genus),n(SemPP,Genus),pp(_).
 
 %Eine Verbalphrase kann sein:
 %Verb
@@ -72,19 +72,19 @@ vp(SemV) --> v(_),np(SemV).
 e(SemE) --> [X], {lex(X,SemE,e)}.
 
 %Interrogativpronomen(Ersetzt das Nomen bspw.: Wer,Was etc..)
-i(SemI) --> [X], {lex(X,SemI,i,_)}.
+i(SemI) --> [X], {lex(X,SemI,i,_,_)}.
 
 %Artikel
-a(_) --> [X], {lex(X,_,a,_)}.
+a(_,Genus) --> [X], {lex(X,_,a,_,Genus)}.
 
 %Nomen
-n(SemN) --> [X], {lex(X,SemN,n,_)}.
+n(SemN,Genus) --> [X], {lex(X,SemN,n,_,Genus)}.
 
 %Präposition
-p(_) --> [X], {lex(X,_,p,_)}.
+p(_) --> [X], {lex(X,_,p,_,_)}.
 
 %Verb
-v(SemV) --> [X], {lex(X,SemV,v,_)}.
+v(SemV) --> [X], {lex(X,SemV,v,_,_)}.
 
 :- begin_tests('DCGCode').
 %ergaenzungsfragen

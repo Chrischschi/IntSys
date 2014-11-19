@@ -48,8 +48,8 @@ antworten(FrageP,Antwort,ergaenzungsfrage) :-
 	  formulieren. */
           FrageP =.. [Beziehung,P1,P2],
             setof(P1,FrageP,Personen) -> %% Frage an stammbaum stellen
-          lex(Beziehung,_,n,Numerus),
-          lex(Verb,_,v,Numerus),
+          lex(Beziehung,_,n,Numerus,_),
+          lex(Verb,_,v,Numerus,_),
           append(Personen,[Verb,Beziehung,von,P2],Antwort);
           
             not(setof(P1,FrageP,Personen)),

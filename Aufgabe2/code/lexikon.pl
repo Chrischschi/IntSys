@@ -16,38 +16,37 @@ lex(Name,Name,e) :- frau(Name).
 lex(wer,wer,i,_). % "_Wer_ ist [...]"
 
 %Artikel
-lex(der,der,a,sg).
-lex(die,die,a,pl).
-lex(die,die,a,sg).
-lex(das,das,a,sg).
-lex(ein,ein,a,_).
-lex(eine,eine,a,_).
+lex(der,der,a,sg,m).
+lex(die,die,a,sg,f).
+lex(die,die,a,pl,_).
+lex(das,das,a,sg,n).
+lex(ein,ein,a,_,n).
+lex(eine,eine,a,_,f).
 
 %Nomen
-lex(mutter,mutter,n,sg). % "Wer ist die _Mutter_ von Simone?"
-lex(vater,vater,n,sg).
-lex(partner,partner,n,sg).
-lex(eltern,eltern,n,pl).
-lex(kind,kind,n,sg).
-lex(kinder,kinder,n,pl).
-lex(bruder,bruder,n,sg).
-lex(geschwister,geschwister,n,pl).
-lex(cousin,cousin,n,sg).
-lex(onkel,onkel,n,sg).
-lex(tante,tante,n,sg).
-lex(grosstante,grosstante,n,sg).
-lex(nichte,nichte,n,sg).
-lex(neffe,neffe,n,sg).
-lex(mann,mann,n,sg).
-lex(frau,frau,n,sg).
-lex(verheiratet,verheiratet,n,sg).
-lex(affaere,affaere,n,sg).
+lex(mutter,mutter,n,sg,f). % "Wer ist die _Mutter_ von Simone?"
+lex(vater,vater,n,sg,m).
+lex(partner,partner,n,sg,n).
+lex(eltern,eltern,n,pl,n).
+lex(kind,kind,n,sg,n).
+lex(kinder,kinder,n,pl,n).
+lex(bruder,bruder,n,sg,m).
+lex(geschwister,geschwister,n,pl,n).
+lex(cousin,cousin,n,sg,m).
+lex(onkel,onkel,n,sg,m).
+lex(tante,tante,n,sg,f).
+lex(grosstante,grosstante,n,sg,f).
+lex(nichte,nichte,n,sg,f).
+lex(neffe,neffe,n,sg,m).
+lex(mann,mann,n,sg,m).
+lex(frau,frau,n,sg,f).
+lex(affaere,affaere,n,sg,n).
 
 %Präposition
-lex(von,von,p,_).
-lex(mit,mit,p,_).
+lex(von,von,p,_,_).
+lex(mit,mit,p,_,_).
 
 %Verben
-lex(ist,sein,v,sg). % "Wer _ist_ der Vater von Simone?"
-lex(sind,sein,v,pl).
+lex(ist,sein,v,sg,_). % "Wer _ist_ der Vater von Simone?"
+lex(sind,sein,v,pl,_).
 
