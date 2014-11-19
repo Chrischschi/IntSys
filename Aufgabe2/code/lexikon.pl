@@ -13,7 +13,7 @@ lex(Name,Name,e) :- mann(Name).
 lex(Name,Name,e) :- frau(Name).
 
 %Interrogativpronomen
-lex(wer,wer,i,_). % "_Wer_ ist [...]"
+lex(wer,wer,i,_,_). % "_Wer_ ist [...]"
 
 %Artikel
 lex(der,der,a,sg,m).

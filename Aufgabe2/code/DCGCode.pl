@@ -39,10 +39,10 @@ np(SemN) --> e(SemN).
 np(SemN) --> i(SemN).
 
 % Artikel, Nomen
-np(SemN) --> a(_,Genus),n(SemN,Genus).
+np(SemN) --> a(_,Numerus,Genus),n(SemN,Numerus,Genus).
 
 % Artikel, Nomen, Präpositionalphrase
-np([SemN,SemPP]) --> a(_,Genus),n(SemN,Genus),pp(SemPP).
+np([SemN,SemPP]) --> a(_,Numerus,Genus),n(SemN,Numerus,Genus),pp(SemPP).
 
 % "Eine Präpositionalphrase kann sein:"
 % Präposition,Nominalphrase
@@ -54,13 +54,13 @@ pp(SemPP) --> p(_),e(SemPP).
 %Präposition,Interrogativpronomen
 pp(SemPP) --> p(_),i(SemPP).
 %Präposition,Artikel,Nomen
-pp(SemPP) --> p(_),a(_,Genus),n(SemPP,Genus).
+pp(SemPP) --> p(_),a(_,Numerus,Genus),n(SemPP,Numerus,Genus).
 %Präposition,Artikel,Nomen
-pp(SemPP) --> p(_),a(_,Genus),n(SemPP,Genus),pp(_).
+pp(SemPP) --> p(_),a(_,Numerus,Genus),n(SemPP,Numerus,Genus),pp(_).
 
 %Eine Verbalphrase kann sein:
 %Verb
-vp([SemV,_]) --> v(SemV).
+vp(SemV) --> v(SemV).
 
 %Verb,Nominalphrase
 vp(SemV) --> v(_),np(SemV).
@@ -75,10 +75,10 @@ e(SemE) --> [X], {lex(X,SemE,e)}.
 i(SemI) --> [X], {lex(X,SemI,i,_,_)}.
 
 %Artikel
-a(_,Genus) --> [X], {lex(X,_,a,_,Genus)}.
+a(_,Numerus,Genus) --> [X], {lex(X,_,a,Numerus,Genus)}.
 
 %Nomen
-n(SemN,Genus) --> [X], {lex(X,SemN,n,_,Genus)}.
+n(SemN,Numerus,Genus) --> [X], {lex(X,SemN,n,Numerus,Genus)}.
 
 %Präposition
 p(_) --> [X], {lex(X,_,p,_,_)}.
