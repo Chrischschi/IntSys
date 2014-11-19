@@ -26,6 +26,7 @@ lex(eine,eine,a,_).
 %Nomen
 lex(mutter,mutter,n,sg). % "Wer ist die _Mutter_ von Simone?"
 lex(vater,vater,n,sg).
+lex(partner,partner,n,sg).
 lex(eltern,eltern,n,pl).
 lex(kind,kind,n,sg).
 lex(kinder,kinder,n,pl).

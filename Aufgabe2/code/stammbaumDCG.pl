@@ -7,6 +7,8 @@
 kind(Kinder, Elternteil) :- kinder(Kinder, Elternteil),!.
 kinder(Kinder, Elternteil) :- kind_aus(Elternteil,_,Kinder);kind_aus(_,Elternteil,Kinder).
 
+partner(P1,P2) :- verheiratet(P1,P2).
+
 /* einstiegspunkt für die dcg-anwendung.
    beim aufrufen kann man eine frage stellen, welche
    am besten mit ? aber auch möglich mit ! oder . abgeschlossen
