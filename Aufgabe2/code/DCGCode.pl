@@ -60,7 +60,7 @@ pp(SemPP) --> p(_),a(_),n(SemPP),pp(_).
 
 %Eine Verbalphrase kann sein:
 %Verb
-%vp([SemV,_]) --> v(SemV).
+vp([SemV,_]) --> v(SemV).
 
 %Verb,Nominalphrase
 vp(SemV) --> v(_),np(SemV).

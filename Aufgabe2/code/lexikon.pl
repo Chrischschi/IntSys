@@ -28,6 +28,7 @@ lex(mutter,mutter,n,sg). % "Wer ist die _Mutter_ von Simone?"
 lex(vater,vater,n,sg).
 lex(eltern,eltern,n,pl).
 lex(kind,kind,n,sg).
+lex(kinder,kinder,n,pl).
 lex(bruder,bruder,n,sg).
 lex(geschwister,geschwister,n,pl).
 lex(cousin,cousin,n,sg).

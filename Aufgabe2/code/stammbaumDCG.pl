@@ -3,6 +3,10 @@
 % Timo Lange, Christian Schirin
 % 29.Oktober.2014
 
+%mapping auf stammbaum praedikate
+kind(Kinder, Elternteil) :- kinder(Kinder, Elternteil),!.
+kinder(Kinder, Elternteil) :- kind_aus(Elternteil,_,Kinder);kind_aus(_,Elternteil,Kinder).
+
 /* einstiegspunkt für die dcg-anwendung.
    beim aufrufen kann man eine frage stellen, welche
    am besten mit ? aber auch möglich mit ! oder . abgeschlossen
@@ -44,8 +48,7 @@ antworten(FrageP,Antwort,ergaenzungsfrage) :-
             setof(P1,FrageP,Personen) -> %% Frage an stammbaum stellen
           lex(Beziehung,_,n,Numerus),
           lex(Verb,_,v,Numerus),
-          lex(Artikel,_,a,Numerus),
-          append(Personen,[Verb,Artikel,Beziehung,von,P2],Antwort);
+          append(Personen,[Verb,Beziehung,von,P2],Antwort);
           
             not(setof(P1,FrageP,Personen)),
             FrageP =.. [Beziehung,P1,P2],
@@ -96,19 +99,19 @@ test(antworten) :-
 test(antworten) :-
     antworten(
     vater(_,siegfried),
-    [klaus,ist,der,vater,von,siegfried],
+    [klaus,ist,vater,von,siegfried],
     ergaenzungsfrage
     ).
 test(antworten) :-
     antworten(
     onkel(_,simone),
-    [karl,ist,der,onkel,von,simone],
+    [karl,ist,onkel,von,simone],
     ergaenzungsfrage
     ).
 test(antworten) :-
     antworten(
     tante(_,simone),
-    [anna,ist,die,tante,von,simone],
+    [anna,ist,tante,von,simone],
     ergaenzungsfrage
     ).
 :- end_tests(stammbaumDCG).
