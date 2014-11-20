@@ -1,0 +1,22 @@
+Aufgabe 3 Arbeitsteilungsplan
+
+Christian: 
+
+Bei Aufgabe 1 alles machen (hauptsächlich state_member/2 (bei bedarf) und 
+expand_help/3 in Suche_Modul_Planung_Vorlage.pl implementieren).
+Tiefensuche und Breitensuche schon realisiert.
+
+
+Bei Aufgabe 2 A* und Optimistisches Bergsteigen implementieren.
+
+Timo: 
+
+Bei Aufgabe 1 nichts 
+Bei Aufgabe 2 Gierige Bestensuche und Bergsteigen mit backtracking
+
+
+Beide: 
+
+Bei Aufgabe 2 eval_path implementieren
+
+
