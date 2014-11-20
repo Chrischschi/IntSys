@@ -42,15 +42,18 @@ goal_description([
 
 start_node((start,_,_)).
 
-goal_node((_,State,_)):-
-  "Zielbedingungen einlesen"
-  "Zustand gegen Zielbedingungen testen".
+goal_node((_,State,_)):- goal_description(State). %timos ansatz
+  % "Zielbedingungen einlesen"
+  %"Zustand gegen Zielbedingungen testen"
 
 
 
 % Aufgrund der Komplexität der Zustandsbeschreibungen kann state_member nicht auf 
 % das Standardprädikat member zurückgeführt werden.
 %  
+
+state_member(State,StateList):- member(State,StateList). %einfaches member reicht,da versucht wird state mit jedem listelement zu unifizieren
+/*
 state_member(_,[]):- !,fail.
 
 state_member(State,[FirstState|_]):-
@@ -60,7 +63,7 @@ state_member(State,[FirstState|_]):-
 %Es ist sichergestellt, dass die beiden ersten Klauseln nicht zutreffen.
 state_member(State,[_|RestStates]):-  
   "rekursiver Aufruf".
-
+*/
 
 eval_path([(_,State,Value)|RestPath]):-
   eval_state(State,"Rest des Literals bzw. der Klausel"
