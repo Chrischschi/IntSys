@@ -9,10 +9,10 @@
 
 
 %%% Spezieller Teil: Wassergef‰ﬂe
-:- consult('Suche_Modul_Wasser.pl').
+%:- consult('Suche_Modul_Wasser.pl').
 
 
 
 %%% Spezieller Teil: Planung
-%:- consult('Suche_Modul_Planung.pl').
+:- consult('Suche_Modul_Planung.pl').
 

@@ -42,9 +42,10 @@ goal_description([
 
 start_node((start,_,_)).
 
-goal_node((_,State,_)):- goal_description(State). %timos ansatz
-  % "Zielbedingungen einlesen"
-  %"Zustand gegen Zielbedingungen testen"
+%goal_node((_,State,_)):- goal_description(State). %timos ansatz
+goal_node((_,State,_)) :- 
+  goal_description(GoalState),  % "Zielbedingungen einlesen"
+  state_member(GoalState,[State]).%"Zustand gegen Zielbedingungen testen"
 
 
 
@@ -52,23 +53,25 @@ goal_node((_,State,_)):- goal_description(State). %timos ansatz
 % das Standardprädikat member zurückgeführt werden.
 %  
 
-state_member(State,StateList):- member(State,StateList). %einfaches member reicht,da versucht wird state mit jedem listelement zu unifizieren
-/*
+%state_member(State,StateList):- member(State,StateList). %einfaches member reicht,da versucht wird state mit jedem listelement zu unifizieren
+
 state_member(_,[]):- !,fail.
 
 state_member(State,[FirstState|_]):-
-  "Test, ob State bereits durch FirstState beschrieben war. Tipp: Eine 
-  Lösungsmöglichkeit besteht in der Verwendung einer Mengenoperation, z.B. subtract"  ,!.  
+  %"Test, ob State bereits durch FirstState beschrieben war. Tipp: Eine 
+  %Lösungsmöglichkeit besteht in der Verwendung einer Mengenoperation, z.B. subtract"
+   subtract(State,FirstState,[]) ,!.  
 
 %Es ist sichergestellt, dass die beiden ersten Klauseln nicht zutreffen.
 state_member(State,[_|RestStates]):-  
-  "rekursiver Aufruf".
-*/
+  state_member(State,RestStates).
 
+
+/*
 eval_path([(_,State,Value)|RestPath]):-
   eval_state(State,"Rest des Literals bzw. der Klausel"
   "Value berechnen".
-
+*/
   
 
 action(pick_up(X),
@@ -102,7 +105,7 @@ mysubset([H|T],List):-
 
 
 expand_help(State,Name,NewState):-
-  action(Name,CondList,DelList,AddList)% "Action suchen"
+  action(Name,CondList,DelList,AddList),% "Action suchen"
   mysubset(CondList,State), % "Conditions testen"
   lists:subtract(State,DelList,StateMinusDel), % "Del-List umsetzen"
   lists:union(AddList,StateMinusDel,NewState). % "Add-List umsetzen"
