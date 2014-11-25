@@ -58,9 +58,10 @@ goal_node((_,State,_)) :-
 state_member(_,[]):- !,fail.
 
 state_member(State,[FirstState|_]):-
-  %"Test, ob State bereits durch FirstState beschrieben war. Tipp: Eine 
-  %Lösungsmöglichkeit besteht in der Verwendung einer Mengenoperation, z.B. subtract"
-   subtract(State,FirstState,[]) ,!.  
+   /* Wir müssen überprüfen, ob State und FirstState die gleiche Menge sind.
+      Zwei mengen A und B sind gleich, wenn gilt, dass A Teilmenge von B und 
+      B Teilmenge von A ist. */
+   lists:subset(State,FirstState), lists:subset(FirstState,State) ,!.  
 
 %Es ist sichergestellt, dass die beiden ersten Klauseln nicht zutreffen.
 state_member(State,[_|RestStates]):-  
