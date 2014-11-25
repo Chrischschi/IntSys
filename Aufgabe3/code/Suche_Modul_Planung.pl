@@ -68,12 +68,32 @@ state_member(State,[_|RestStates]):-
   state_member(State,RestStates).
 
 
-/*
+
 eval_path([(_,State,Value)|RestPath]):-
-  eval_state(State,"Rest des Literals bzw. der Klausel"
-  "Value berechnen".
-*/
-  
+  lists:length(RestPath,RestPathLength), %kürzere pfade sind besser
+  eval_state(State,StateValue),
+  plus(RestPathLength,StateValue,Value). %statt pfad länge vielleicht lieber die addierten state-values des restpfades??
+
+eval_state(State, Value) :-
+  goal_description(GoalState), %read goal descreption
+  subtract(GoalState,State,GoalSubset), %umso weniger abweichung vom ziel, desto besser(billiger)
+  eval_stateMembers(GoalSubset,Value).
+
+  %eval_stateMembers([],_).%alle stete elemente bewertet(abbruchbedingung)
+  eval_stateMembers(StateMembers,ResultValue) :-
+    maplist(stateMemberWeighting,StateMembers,WeigthingsList),
+    foldl(plus,WeigthingsList,0,ResultValue).
+    %stateMemberWeighting(FirstStateMember,MemberValue),
+    %eval_stateMembers(RestStateMembers,Value),
+    %plus(Value,MemberValue,ResultValue).
+    
+%gewichtung der verschiedenen elemente eines states
+stateMemberWeighting(block(_),1).
+stateMemberWeighting(on(table,_),0).
+stateMemberWeighting(on(Block,_),1) :- Block \= table.
+stateMemberWeighting(clear(_),0).
+stateMemberWeighting(handempty,1).
+
 
 action(pick_up(X),
        [handempty, clear(X), on(table,X)],
