@@ -138,7 +138,13 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
   write_action(AllPaths),
   write_state(AllPaths).
 
+%%%%%%%%%%%%%%%%% NEUE METHODEN FÜR insert_new_paths/4 %%%%%%%%%%%%%%%%%%%%%%%%
 
+% Optimistisches Bergsteigen (implementiert von Christian Schirin) 
+
+insert_new_paths(opt_hill_climb, NewPaths, OldPaths, AllPaths) :-
+  !,fail,insert_new_paths(opt_hill_climb,NewPaths,OldPaths,AllPaths),notImplementedYet. 
+  
 
 
 
