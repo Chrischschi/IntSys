@@ -67,7 +67,44 @@ state_member(State,[FirstState|_]):-
 state_member(State,[_|RestStates]):-  
   state_member(State,RestStates).
 
+%! eval_path(+PathList:list) is det.
+%  Wertet heuristik für den kopf eines pfades aus. 
+eval_path([(_,State,Value)|_RestPath]):-
+  eval_state(State,StateValue),%"Rest des Literals bzw. der Klausel"
+  /* Keine rekursion "Da nur das erste Element des Pfades zur Bewertung
+     herangezogen werden muss [...]" */
+  Value = StateValue.%"Value berechnen".
 
+
+%! eval_state((State:list) is det. 
+%  Wertet eine heuristik für einen zustand aus
+eval_state(State,Result) :- 
+  eval_state_help(sym_diff,State,Result).
+  
+%! eval_state_help(Heuristic,(Action:atom,State:list,Value:int)) is det.
+%  Helper-funktion um zwischen Heuristik zu wählen.  
+/* Christians Heuristik für eval_state: Symmetrische Differenz von Zustand State 
+   und dem Zielzustand. Wenn State gleich dem Zustand ist, dann ist die 
+   Symmetrische Differenz leer. Wenn State disjunkt vom Endzustand dann ist
+   die Symmetrische Differenz gleich der Vereinigung der beiden Mengen */
+eval_state_help(sym_diff,State,Result) :- 
+  goal_description(GoalState),
+  symmetric_difference(State,GoalState,SymDiff),
+  lists:length(SymDiff,Result).
+  
+%! symmetric_difference(SetA:list,SetB:list,Result:list) 
+%  Berechnet die Symmetrische Differenz zwischen SetA und SetB 
+%  Definition siehe 
+%  http://de.wikipedia.org/wiki/Menge_%28Mathematik%29#Symmetrische_Differenz 
+%  oder http://mathworld.wolfram.com/SymmetricDifference.html
+%  oder http://rosettacode.org/wiki/Symmetric_difference
+symmetric_difference(SetA,SetB,Result) :- 
+   lists:subtract(SetA,SetB,SetAMinusB),
+   lists:subtract(SetB,SetA,SetBMinusA),
+   lists:union(SetAMinusB,SetBMinusA,Result).
+  
+  
+/*
 
 eval_path([(_,State,Value)|RestPath]):-
   lists:length(RestPath,RestPathLength), %kürzere pfade sind besser
@@ -93,7 +130,7 @@ stateMemberWeighting(on(table,_),0).
 stateMemberWeighting(on(Block,_),1) :- Block \= table.
 stateMemberWeighting(clear(_),0).
 stateMemberWeighting(handempty,1).
-
+*/
 
 action(pick_up(X),
        [handempty, clear(X), on(table,X)],
@@ -136,6 +173,15 @@ expand((_,State,_),Result):-
 
 
 
+:- begin_tests(planning_helpers). 
+
+test(symmetric_difference) :-
+        A = [john,bob,mary,serena],
+        B = [jim,mary,john,bob],
+        symmetric_difference(A,B,[serena,jim]).
+
+
+:- end_tests(planning_helpers).
 
 
 
