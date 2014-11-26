@@ -140,19 +140,21 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
 
 %%%%%%%%%%%%%%%%% NEUE METHODEN FÜR insert_new_paths/4 %%%%%%%%%%%%%%%%%%%%%%%%
 
-% Optimistisches Bergsteigen (implementiert von Christian Schirin) 
-
-%%insert_new_paths(opt_hill_climb, NewPaths, OldPaths, AllPaths) :-
-%%  !,fail,insert_new_paths(opt_hill_climb,NewPaths,OldPaths,AllPaths),notImplementedYet. 
+% Optimistisches Bergsteigen 
+insert_new_paths(opt_hill_climb, NewPaths, _OldPaths, [LowestSuccessor]) :-
+  eval_paths(sym_diff,ignoreRestPath,NewPaths),
+  insert_new_paths_informed(NewPaths,[],SortedNewPaths),
+  [LowestSuccessor|_] = SortedNewPaths,
+  write_action(SortedNewPaths),
+  write_state(SortedNewPaths).
   
-
-%Bergsteigen mit backtracking
+%Bergsteigen mit backtracking 
 insert_new_paths(hillClimbingBT,NewPaths,OldPaths,AllPaths):-
   eval_paths(sym_diff,ignoreRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,[],NewPathsSorted),
-  append(NewPathsSorted,OldPaths,AllPaths).
-  %write_action(AllPaths),
-  %write_state(AllPaths).
+  append(NewPathsSorted,OldPaths,AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
 
 %gierige Bestensuche
 insert_new_paths(greedyBFS,NewPaths,OldPaths,AllPaths):-
@@ -161,3 +163,9 @@ insert_new_paths(greedyBFS,NewPaths,OldPaths,AllPaths):-
   write_action(AllPaths),
   write_state(AllPaths).
 
+%A*-algorithmus 
+insert_new_paths(a-star,NewPaths,OldPaths,AllPaths) :- 
+  eval_paths(sym_diff,lengthRestPath,NewPaths),
+  insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
