@@ -133,7 +133,7 @@ insert_new_paths(breadth,NewPaths,OldPaths,AllPaths):-
 
 % Informierte Suche
 insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
-  eval_paths(NewPaths),
+  eval_paths(sym_diff,lengthRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).
