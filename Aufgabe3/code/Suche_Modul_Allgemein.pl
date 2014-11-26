@@ -149,8 +149,8 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
 %Bergsteigen mit backtracking
 insert_new_paths(hillClimbingBT,NewPaths,OldPaths,AllPaths):-
   eval_paths(sym_diff,ignoreRestPath,NewPaths),
-  insert_new_paths_informed(NewPaths,OldPaths,AllPathsSorted),
-  append(AllPathsSorted,OldPaths,AllPaths).
+  insert_new_paths_informed(NewPaths,[],NewPathsSorted),
+  append(NewPathsSorted,OldPaths,AllPaths).
   %write_action(AllPaths),
   %write_state(AllPaths).
 
