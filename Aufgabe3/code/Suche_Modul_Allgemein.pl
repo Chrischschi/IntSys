@@ -146,6 +146,18 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
 %%  !,fail,insert_new_paths(opt_hill_climb,NewPaths,OldPaths,AllPaths),notImplementedYet. 
   
 
+%Bergsteigen mit backtracking
+insert_new_paths(hillClimbingBT,NewPaths,OldPaths,AllPaths):-
+  eval_paths(sym_diff,ignoreRestPath,NewPaths),
+  insert_new_paths_informed(NewPaths,OldPaths,AllPathsSorted),
+  append(AllPathsSorted,OldPaths,AllPaths).
+  %write_action(AllPaths),
+  %write_state(AllPaths).
 
-
+%gierige Bestensuche
+insert_new_paths(greedyBFS,NewPaths,OldPaths,AllPaths):-
+  eval_paths(sym_diff,ignoreRestPath,NewPaths),
+  insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
 
