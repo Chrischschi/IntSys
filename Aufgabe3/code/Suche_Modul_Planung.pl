@@ -45,7 +45,7 @@ start_node((start,_,_)).
 %goal_node((_,State,_)):- goal_description(State). %timos ansatz
 goal_node((_,State,_)) :- 
   goal_description(GoalState),  % "Zielbedingungen einlesen"
-  state_member(GoalState,[State]).%"Zustand gegen Zielbedingungen testen"
+  mysubset(GoalState,State).%"Zustand gegen Zielbedingungen testen"
 
 
 
