@@ -142,8 +142,8 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
 
 % Optimistisches Bergsteigen (implementiert von Christian Schirin) 
 
-insert_new_paths(opt_hill_climb, NewPaths, OldPaths, AllPaths) :-
-  !,fail,insert_new_paths(opt_hill_climb,NewPaths,OldPaths,AllPaths),notImplementedYet. 
+%%insert_new_paths(opt_hill_climb, NewPaths, OldPaths, AllPaths) :-
+%%  !,fail,insert_new_paths(opt_hill_climb,NewPaths,OldPaths,AllPaths),notImplementedYet. 
   
 
 

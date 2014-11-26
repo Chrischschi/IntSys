@@ -88,11 +88,12 @@ eval_state(State, Value) :-
     %plus(Value,MemberValue,ResultValue).
     
 %gewichtung der verschiedenen elemente eines states
-stateMemberWeighting(block(_),1).
-stateMemberWeighting(on(table,_),0).
-stateMemberWeighting(on(Block,_),1) :- Block \= table.
+stateMemberWeighting(block(_),0).%evtl. rausnehmen da eigentlich nie in der differenzmenge enthalten sein darf(GoalState \ State)
+stateMemberWeighting(on(table,_),1).
+stateMemberWeighting(on(Block,_),0) :- Block \= table.
 stateMemberWeighting(clear(_),0).
-stateMemberWeighting(handempty,1).
+stateMemberWeighting(handempty,0).
+stateMemberWeighting(holding(_),0).
 
 
 action(pick_up(X),
