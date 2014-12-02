@@ -99,7 +99,7 @@ eval_restpath_help(lengthRestPath,RestPath,Value) :- %Bisherige kosten = laenge 
    die Symmetrische Differenz gleich der Vereinigung der beiden Mengen */
 eval_state_help(minus,State,ResultAdmissible) :- 
   goal_description(GoalState),
-  lists:subtract(State,GoalState,Difference),
+  lists:subtract(GoalState,State,Difference),
   lists:length(Difference,Result),
   ResultAdmissible is Result // 3. %Heuristik zulässig machen
   % Integer-division damit es mit plus funktioniert
