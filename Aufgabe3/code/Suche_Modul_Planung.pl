@@ -97,10 +97,12 @@ eval_restpath_help(lengthRestPath,RestPath,Value) :- %Bisherige kosten = laenge 
    und dem Zielzustand. Wenn State gleich dem Zustand ist, dann ist die 
    Symmetrische Differenz leer. Wenn State disjunkt vom Endzustand dann ist
    die Symmetrische Differenz gleich der Vereinigung der beiden Mengen */
-eval_state_help(sym_diff,State,Result) :- 
+eval_state_help(minus,State,ResultAdmissible) :- 
   goal_description(GoalState),
-  symmetric_difference(State,GoalState,SymDiff),
-  lists:length(SymDiff,Result).
+  lists:subtract(State,GoalState,Difference),
+  lists:length(Difference,Result),
+  ResultAdmissible is Result // 3. %Heuristik zulässig machen
+  % Integer-division damit es mit plus funktioniert
   
 
 

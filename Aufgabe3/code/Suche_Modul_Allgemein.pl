@@ -133,7 +133,7 @@ insert_new_paths(breadth,NewPaths,OldPaths,AllPaths):-
 
 % Informierte Suche
 insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
-  eval_paths(sym_diff,lengthRestPath,NewPaths),
+  eval_paths(minus,lengthRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).
@@ -142,7 +142,7 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
 
 % Optimistisches Bergsteigen 
 insert_new_paths(opt_hill_climb, NewPaths, _OldPaths, [LowestSuccessor]) :-
-  eval_paths(sym_diff,ignoreRestPath,NewPaths),
+  eval_paths(minus,ignoreRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,[],SortedNewPaths),
   [LowestSuccessor|_] = SortedNewPaths,
   write_action(SortedNewPaths),
@@ -150,7 +150,7 @@ insert_new_paths(opt_hill_climb, NewPaths, _OldPaths, [LowestSuccessor]) :-
   
 %Bergsteigen mit backtracking 
 insert_new_paths(hillClimbingBT,NewPaths,OldPaths,AllPaths):-
-  eval_paths(sym_diff,ignoreRestPath,NewPaths),
+  eval_paths(minus,ignoreRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,[],NewPathsSorted),
   append(NewPathsSorted,OldPaths,AllPaths),
   write_action(AllPaths),
@@ -158,14 +158,14 @@ insert_new_paths(hillClimbingBT,NewPaths,OldPaths,AllPaths):-
 
 %gierige Bestensuche
 insert_new_paths(greedyBFS,NewPaths,OldPaths,AllPaths):-
-  eval_paths(sym_diff,ignoreRestPath,NewPaths),
+  eval_paths(minus,ignoreRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).
 
 %A*-algorithmus 
 insert_new_paths(a-star,NewPaths,OldPaths,AllPaths) :- 
-  eval_paths(sym_diff,lengthRestPath,NewPaths),
+  eval_paths(minus,lengthRestPath,NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).
