@@ -13,7 +13,7 @@ solve(Strategy):-
 %
 solve(StartNode,Strategy) :-
   start_node(StartNode),
-  search([[StartNode]],Strategy,Path),
+  search([[StartNode]],Strategy,Path,0),
   reverse(Path,Path_in_correct_order),
   write_solution(Path_in_correct_order).
 
@@ -41,11 +41,12 @@ search([[FirstNode|Predecessors]|_],_,[FirstNode|Predecessors]) :-
   nl,write('SUCCESS'),nl,!.
 
 
-search([[FirstNode|Predecessors]|RestPaths],Strategy,Solution) :- 
+search([[FirstNode|Predecessors]|RestPaths],Strategy,Solution,Depth) :- 
   expand(FirstNode,Children),                                    % Nachfolge-Zustände berechnen
   generate_new_paths(Children,[FirstNode|Predecessors],NewPaths), % Nachfolge-Zustände einbauen 
   insert_new_paths(Strategy,NewPaths,RestPaths,AllPaths),        % Neue Pfade einsortieren
-  search(AllPaths,Strategy,Solution).
+  plus(Depth,1,DepthPlusOne),
+  search(AllPaths,Strategy,Solution,DepthPlusOne).
 
 
 
