@@ -13,9 +13,19 @@ solve(Strategy):-
 %
 solve(StartNode,Strategy) :-
   start_node(StartNode),
-  search([[StartNode]],Strategy,Path,0),
+  search_deepen([[StartNode]],Strategy,Path,1),
   reverse(Path,Path_in_correct_order),
   write_solution(Path_in_correct_order).
+
+% Hilfsmethode, zum implementieren von iterativer Tiefensuche. 
+%Rekursionsabbruch: wir haben ein ergebnis aus search
+search_deepen(AllPaths,Strategy,Solution,MaxDepth) :- 
+  search(AllPaths,Strategy,Solution,1,MaxDepth),
+  is_list(Solution). 
+%Rekursionsschritt, erhöhe tiefe um 1
+search_deepen(AllPaths,Strategy,Solution,MaxDepth) :- 
+  plus(MaxDepth,1,MaxDepthPlusOne),
+  search_deepen(AllPaths,Strategy,Solution,MaxDepthPlusOne).
 
 
 
@@ -36,17 +46,20 @@ write_actions([(Action,_,_)|Rest]):-
 % Abbruchbedingung: Wenn ein Zielzustand erreicht ist, wird der aktuelle Pfad an den
 % dritten Parameter übertragen.
 %
-search([[FirstNode|Predecessors]|_],_,[FirstNode|Predecessors]) :- 
+search([[FirstNode|Predecessors]|_],_,[FirstNode|Predecessors],Depth,MaxDepth) :- 
   goal_node(FirstNode),
-  nl,write('SUCCESS'),nl,!.
+  nl,write('SUCCESS'),io:tab(1),
+  io:format("Depth:~d,MaxDepth:~d",[Depth,MaxDepth]),
+  nl,!.
 
 
-search([[FirstNode|Predecessors]|RestPaths],Strategy,Solution,Depth) :- 
-  expand(FirstNode,Children),                                    % Nachfolge-Zustände berechnen
+search([[FirstNode|Predecessors]|RestPaths],Strategy,Solution,Depth,MaxDepth) :-
+  Depth < MaxDepth,
+  expand(FirstNode,Children,Depth,MaxDepth),     % Nachfolge-Zustände berechnen
   generate_new_paths(Children,[FirstNode|Predecessors],NewPaths), % Nachfolge-Zustände einbauen 
   insert_new_paths(Strategy,NewPaths,RestPaths,AllPaths),        % Neue Pfade einsortieren
   plus(Depth,1,DepthPlusOne),
-  search(AllPaths,Strategy,Solution,DepthPlusOne).
+  search(AllPaths,Strategy,Solution,DepthPlusOne,MaxDepth).
 
 
 

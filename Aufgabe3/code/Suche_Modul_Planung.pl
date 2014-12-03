@@ -160,8 +160,10 @@ expand_help(State,Name,NewState):-
   mysubset(CondList,State), % "Conditions testen"
   lists:subtract(State,DelList,StateMinusDel), % "Del-List umsetzen"
   lists:union(AddList,StateMinusDel,NewState). % "Add-List umsetzen"
-  
-expand((_,State,_),Result):-
+
+
+expand(_,[],Depth,Depth). %Tiefenbeschränkung erreicht, keine kinder liefern! 
+expand((_,State,_),Result,_Depth,_MaxDepth):-
   findall((Name,NewState,_),expand_help(State,Name,NewState),Result).
 
 
