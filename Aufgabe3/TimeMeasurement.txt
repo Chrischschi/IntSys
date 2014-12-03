@@ -1,0 +1,40 @@
+Mit Block 4, Heuristic: minus:
+	?- member(S,[depth,breadth,informed,opt_hill_climb,hillClimbingBT,greedyBFS,a-star]), solve(S),fail.
+depth ->			% 145,861 inferences, 0.031 CPU in 0.034 seconds (92% CPU, 4675002 Lips)
+breadth ->			% 49,817 inferences, 0.016 CPU in 0.008 seconds (195% CPU, 3193377 Lips)
+informed ->			% 30,421 inferences, 0.000 CPU in 0.004 seconds (0% CPU, Infinite Lips)
+opt_hill_climb ->	% 7,326 inferences, 0.000 CPU in 0.002 seconds (0% CPU, Infinite Lips)
+hillClimbingBT ->	% 73,745 inferences, 0.016 CPU in 0.011 seconds (142% CPU, 4727213 Lips)
+greedyBFS ->		% 17,448 inferences, 0.000 CPU in 0.003 seconds (0% CPU, Infinite Lips)
+a-star ->			% 30,421 inferences, 0.000 CPU in 0.005 seconds (0% CPU, Infinite Lips)
+
+Mit Block 4, Heuristic: stateMembers:
+	?- member(S,[depth,breadth,informed,opt_hill_climb,hillClimbingBT,greedyBFS,a-star]), solve(S),fail.
+depth ->			% 145,861 inferences, 0.047 CPU in 0.042 seconds (111% CPU, 3116668 Lips)
+breadth ->			% 49,817 inferences, 0.000 CPU in 0.007 seconds (0% CPU, Infinite Lips)
+informed ->			% 40,194 inferences, 0.016 CPU in 0.007 seconds (223% CPU, 2576522 Lips)
+opt_hill_climb ->	% 5,712 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+hillClimbingBT ->	% 9,384 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+greedyBFS ->		% 8,757 inferences, 0.000 CPU in 0.002 seconds (0% CPU, Infinite Lips)
+a-star ->			% 40,194 inferences, 0.000 CPU in 0.006 seconds (0% CPU, Infinite Lips):
+	
+
+Ohne Block 4, Heuristic: minus:
+	?- member(S,[depth,breadth,informed,opt_hill_climb,hillClimbingBT,greedyBFS,a-star]), solve(S),fail.
+depth ->			% 1,824 inferences, 0.000 CPU in 0.000 seconds (?% CPU, Infinite Lips)
+breadth ->			% 2,692 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+informed ->			% 3,396 inferences, 0.000 CPU in 0.002 seconds (0% CPU, Infinite Lips)
+opt_hill_climb ->	% 2,484 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+hillClimbingBT ->	% 2,549 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+greedyBFS ->		% 2,308 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+a-star ->			% 3,396 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+	
+Ohne Block 4, Heuristic: stateMembers:
+	?- member(S,[depth,breadth,informed,opt_hill_climb,hillClimbingBT,greedyBFS,a-star]), solve(S),fail.
+depth ->			% 1,824 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+breadth ->			% 2,692 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+informed ->			% 3,375 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+opt_hill_climb ->	% 2,654 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+hillClimbingBT ->	% 2,712 inferences, 0.016 CPU in 0.002 seconds (780% CPU, 173845 Lips)
+greedyBFS ->		% 2,160 inferences, 0.000 CPU in 0.001 seconds (0% CPU, Infinite Lips)
+a-star ->			% 3,375 inferences, 0.000 CPU in 0.002 seconds (0% CPU, Infinite Lips)
