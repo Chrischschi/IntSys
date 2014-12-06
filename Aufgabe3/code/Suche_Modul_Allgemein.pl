@@ -141,23 +141,11 @@ insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
 %%%%%%%%%%%%%%%%% NEUE METHODEN FÜR insert_new_paths/4 %%%%%%%%%%%%%%%%%%%%%%%%
 
 % Optimistisches Bergsteigen 
-insert_new_paths(opt_hill_climb, NewPaths, OldPaths, [CheckedLowestSuccessorPath]) :-
-  eval_paths(minus,ignoreRestPath,NewPaths),
-  insert_new_paths_informed(NewPaths,[],SortedNewPaths),
-  [LowestSuccessorPath|_] = SortedNewPaths,
-  check_better_path(LowestSuccessorPath,OldPaths,CheckedLowestSuccessorPath),
-  write_action(SortedNewPaths),
-  write_state(SortedNewPaths).
-
-%Es existiert noch kein alter Pfad
-check_better_path(NewPath,[],NewPath).
-%Neuer Pfad ist besser als der alte
-check_better_path(NewPath,OldPaths,NewPath) :-
-  [(_,_,NewPathValue)|_] = NewPath,
-  [[(_,_,OldPathValue)|_]|_] = OldPaths,
-  NewPathValue < OldPathValue.
-%Neuer Pfad ist nicht besser als alter
-check_better_path(_,_,[]).
+insert_new_paths(opt_hill_climb,NewPaths,_OldPaths,AllPaths):-
+  eval_paths(stateMembers,ignoreRestPath,NewPaths),
+  insert_new_paths_informed_ohc(NewPaths,[],AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
 
   
 %Bergsteigen mit backtracking 
