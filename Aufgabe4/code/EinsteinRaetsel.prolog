@@ -42,7 +42,7 @@ eq(Brite,Rot),
 %2. Der Schwede hält sich einen Hund.
 eq(Schwede,Hund),
 %3. Der Däne trinkt gern Tee.
-eq(Däne,Tee),
+eq(Daene,Tee),
 %4. Das grüne Haus steht links neben dem weißen Haus.
 eq(Gruen,Links - 1), %Var - 1 : Steht links davon, Var + 1 : Steht rechts davon
 %5. Der Besitzer des grünen Hauses trinkt Kaffee.
