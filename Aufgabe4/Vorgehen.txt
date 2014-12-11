@@ -1,0 +1,15 @@
+Vorgehen bei der Implementation des Constraint-Solvers 
+
+Es wird benötigt: 
+
+0. Modellierung des Rätsels mit einigen Constraints
+1. Die Spezifikation und Implementation der Constraints
+2. Eine Implementation von REVISE (IS-06 Constraints.pdf S.50) 
+3. Eine Implementation von AC-3-LA (IS-06 Constraints.pdf S.91)
+4. Implementation des Top-levels des Solvers (ruft AC-3-LA auf) 
+
+Gut wäre außerdem: 
+
+Eine Ordnungsheuristik für das Instanziieren der Variablen, Siehe 
+IS-06 Constraints.pdf S.97ff. 
+
