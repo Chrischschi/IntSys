@@ -27,4 +27,38 @@ all_different([First|Rest]) :- different(First,Rest), all_different(Rest).
 %Prüfen, ob eine Variable verschieden zu einer liste von Variablen ist.
 different(Var,OtherVars) :- forall(member(OV,OtherVars),dif:dif(Var,OV)). 
   
-  
+:- begin_tests(constraints).
+
+test(nachbar) :- nachbar(1,2).
+test(nachbar) :- nachbar(2,1).
+
+test(nachbar) :- nachbar(2,3). 
+
+test(nachbar) :- nachbar(5,4).
+
+test(eq) :- eq(1,1). 
+
+test(eq) :- eq(2+2,3+1).
+
+test(elems_in_bounds) :- elems_in_bounds(1,[1,2,3,4,5],5).
+
+test(elems_in_bounds) :- elems_in_bounds(1,[5,4,3,2,1],5).
+
+test(elems_in_bounds) :- elems_in_bounds(1,[1,5,4,2,3],5).
+
+test(elems_in_bounds) :- elems_in_bounds(1,[1,1,5,5],5).
+
+test(elem_in_bounds) :- elem_in_bounds(1,3,5).
+
+test(elem_in_bounds) :- elem_in_bounds(1,1,1).
+
+test(all_different) :- all_different([1,2,3,4,5]).
+
+test(all_different) :- all_different([]).
+
+test(different) :- different(1,[2,3,4,5]).
+
+test(different) :- different(1,[]).
+
+:- end_tests(constraints).
+       
