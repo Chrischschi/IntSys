@@ -15,7 +15,7 @@ solve_csp([Var|RestVars],Constraints) :-
   solve_csp(NewRestVars,Constraints).
 
 % 0. "procedure AC3-LA(cv)"
-ac3_la(v(Vcv):_Dcv,NextVars,Arcs,ChangedNextVars,RetConsistent) :- 
+ac3_la(v(Vcv):_Dcv,NextVars,Arcs,RetConsistent) :- 
   % 1. "Q <- {(Vi,Vcv) in arcs(G),i>cv};" Hier: X ist Vi, Y ist Vcv
   % Das "i > cv" braucht man in dieser implementation nicht, weil stattdessen
   % geprüft wird, ob X in NextVars ist. univ muss verwendet werden, da sonst
@@ -27,7 +27,7 @@ ac3_la(v(Vcv):_Dcv,NextVars,Arcs,ChangedNextVars,RetConsistent) :-
   % 2. "consistent <- true";
   Consistent = true, 
   % Iteration ausgelagert, Zeilen 4 bis 9 des 
-  ac3la_while(Q,Consistent,NextVars,ChangedNextVars,UnivArcs,RetConsistent)
+  ac3la_while(Q,Consistent,NextVars,UnivArcs,RetConsistent)
   % 10. "return consistent"
   . % 11. "end AC3-LA" 
 
@@ -43,22 +43,55 @@ ac3la_while(Q,Consistent,NextVars,UnivArcs,RetConsistent) :-
   % Statt delete einfach den Rest von Q nehmen. 
   Q = [[P,Vk,Vm]|RestQ],
   % 5. "if REVISE(Vk,Vm) then"
-  revise(P,Vk,Vm,NextVars,ChangedNextVars) -> 
+  revise(P,Vk,Vm,NextVars,ChangedNextVars,WasRevised),
+  ( WasRevised -> 
     % 6. "Q <- Q union {(Vi,Vk) such that (Vi,Vk) in arcs(G),i#k,i#m,i>cv}"
     setof([P,Vi,Vk],(member([P,Vi,Vk],UnivArcs),Vi \== Vk, Vi \== Vm, 
      member(v(Vi):_DVi,ChangedNextVars)
     ),ViVk),
-    lists:union(Q,ViVk,NewQ),
+    lists:union(RestQ,ViVk,NewQ),
     % 7. "consistent <- not Dk empty"
-    getDomain(Vk,Dk,ChangedNextVars),
+    getDomain(Vk,ChangedNextVars,Dk),
     checkNotEmpty(Dk,NewConsistent),
     % 8. "endif"
     ac3la_while(NewQ,NewConsistent,ChangedNextVars,UnivArcs,RetConsistent)
   % 8a. else {Q <- Q; consistent <- consistent;} endelse 
   % if ohne else geht nicht in funktionalen/deklarativen programmiersprachen
-  ; ac3la_while(RestQ,Consistent,ChangedNextVars,UnivArcs,RetConsistent)
+  ; ac3la_while(RestQ,Consistent,NextVars,UnivArcs,RetConsistent)
+  )
   % 9 "endwhile"
   .
+
+% 0. "procedure REVISE(Vi,Vj)"
+revise(Constraint,Vi,Vj,VarsAndDoms,NewVarsAndDoms,Delete) :- fail. %TODO
    
+
+getDomain(Variable,VarsAndDoms,Domain) :- 
+  member(v(Variable):Domain,VarsAndDoms). 
+  %falls v(Variable):Domain nicht in VarsAndDoms sein sollte, ist definitiv etwas kaputt.
+  
+checkNotEmpty(List,Result) :- \+ checkEmpty(List,Result).
+
+checkEmpty([],true) :- !.
+checkEmpty(List,false) :- List \= [].  
+  
+:- begin_tests('SolverTopLevel').
+
+test(getDomain) :- 
+  getDomain(X,[v(_Y):[4,5,6],v(X):[1,2,3]],[1,2,3]).
+  
+test(checkNotEmpty) :- 
+  checkNotEmpty([1,2,3],true).
+  
+test(checkNotEmpty) :-
+  checkNotEmpty([],false).
+  
+test(checkEmpty) :- 
+  checkEmpty([1,2,3],false).
+  
+test(checkEmpty) :- 
+  checkEmpty([],true).
+  
+:- end_tests('SolverTopLevel').
    
    
