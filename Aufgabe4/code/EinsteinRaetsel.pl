@@ -1,4 +1,4 @@
-%Anwendung unseres Prolog-Solvers: Modellierung des Einstein-Rätsels
+﻿%Anwendung unseres Prolog-Solvers: Modellierung des Einstein-Rätsels
 %11.12.2014 Timo Lange, Christian Schirin
 
 :- ensure_loaded('ConstraintGenerators.pl').

@@ -1,4 +1,4 @@
-%prolog ConstraintGenerators
+﻿%prolog ConstraintGenerators
 
 %"Factory-Methoden" für einzelne constraints, damit sich daraus eine
 % Datenstruktur daraus erzeugen lassen kann.

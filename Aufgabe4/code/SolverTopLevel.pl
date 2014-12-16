@@ -1,4 +1,4 @@
-% SolverToplevel.pl
+﻿% SolverToplevel.pl
 % 14.11.2014 Christian Schirin
 :- ensure_loaded('EinsteinRaetsel.pl').
 
@@ -10,10 +10,16 @@ main :-
 
 solve_csp([],_Constraints).    
 solve_csp([Var|RestVars],Constraints) :-
-  ac3_la(Var,RestVars,Constraints,NewRestVars), %Erst Kantenkonsistenz herstellen
+  %TODO: Entscheiden, ob zuerst ac3_la oder bind_var kommt
+  ac3_la(Var,RestVars,Constraints,IsConsistent), %Erst Kantenkonsistenz herstellen
+  IsConsistent, %Prüfen, ob die Domäne irgendeiner variable leer ist
   bind_var(Var,Constraints), %Dann Variable mit konkretem Wert belegen
   solve_csp(NewRestVars,Constraints).
 
+
+/*  !!!
+TODO: Dafür sorgen, dass die modifizierten domänen zurückgegeben werden
+    !!! */
 % 0. "procedure AC3-LA(cv)"
 ac3_la(v(Vcv):_Dcv,NextVars,Arcs,RetConsistent) :- 
   % 1. "Q <- {(Vi,Vcv) in arcs(G),i>cv};" Hier: X ist Vi, Y ist Vcv
@@ -21,7 +27,7 @@ ac3_la(v(Vcv):_Dcv,NextVars,Arcs,RetConsistent) :-
   % geprüft wird, ob X in NextVars ist. univ muss verwendet werden, da sonst
   % Prädikatenlogik Zweiter Ordnung benötigt wird (Variablen als prädikatsnamen(
   maplist(=.. ,Arcs,UnivArcs),
-  setof([P,X,Y],
+  setof([P,X,Y], % P(X,Y)
   (member([P,X,Y],UnivArcs),Vcv == Y,member(v(X):_DX,NextVars)), 
   Q),
   % 2. "consistent <- true";
@@ -37,11 +43,15 @@ ac3la_while([],Consistent,_,_,Consistent).
 ac3la_while(_,false,_,_,false).
 
 /* Iteration. */
+
+/*  !!!
+TODO: Dafür sorgen, dass die modifizierten domänen zurückgegeben werden
+    !!! */
 ac3la_while(Q,Consistent,NextVars,UnivArcs,RetConsistent) :- 
   % 4. "select and delete any arc (Vk,Vm) from Q"; 
   % Statt select einfach das vorderste element aus Q nehmen. 
   % Statt delete einfach den Rest von Q nehmen. 
-  Q = [[P,Vk,Vm]|RestQ],
+  Q = [[P,Vk,Vm]|RestQ],  % eventuell durch lists:select/2 ersetzen
   % 5. "if REVISE(Vk,Vm) then"
   revise(P,Vk,Vm,NextVars,ChangedNextVars,WasRevised),
   ( WasRevised -> 
@@ -63,7 +73,23 @@ ac3la_while(Q,Consistent,NextVars,UnivArcs,RetConsistent) :-
   .
 
 % 0. "procedure REVISE(Vi,Vj)"
-revise(Constraint,Vi,Vj,VarsAndDoms,NewVarsAndDoms,Delete) :- fail. %TODO
+% wenn Domain von Vi leer ist, dann fertig
+revise(Constraint,Vi,Vj,VarsAndDoms,NewVarsAndDoms,Delete):-
+  getDomain(Vi,VarsAndDoms,DomI),
+  getDomain(Vj,VarsAndDoms,DomVj),
+  reviseHelp(Constraint,DomI,DomJ,NewDomI,Delete),
+  %hier neue VarsAndDoms mit der neuen Domain von Vi bauen
+  %eventuell zu lists:selectchk/4 ändern (weil deterministisch)
+  lists:select(v(Vi):DomI,VarsAndDoms,v(Vi):NewDomI,NewVarsAndDoms)
+  .
+reviseHelp(Constraint,[],DomJ,[],false).
+reviseHelp(Constraint,[],DomJ,[],true).
+reviseHelp(Constraint,[HeadDomI|RestDomI],DomJ,[HeadNewDomI|RestNewDomI],Delete) :-
+  bagof(SupportVar,(member(SupportVar,DomJ),call(Constraint,HeadDomI,SupportVar),_SupportingVars),!,
+  reviseHelp(Constraint,RestDomI,DomJ,RestNewDomI,Delete).
+reviseHelp(Constraint,[_HeadDomI|RestDomI],DomJ,NewDomI,Delete) :-
+  Delete = true,
+  revise(Constraint,RestDomI,DomJ,NewDomI,Delete).
    
 
 getDomain(Variable,VarsAndDoms,Domain) :- 

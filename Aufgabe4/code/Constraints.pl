@@ -1,4 +1,4 @@
-%Constraints unseres Constraint-Solvers. 
+﻿%Constraints unseres Constraint-Solvers. 
 %11.12.2014 Christian Schirin
 
 
