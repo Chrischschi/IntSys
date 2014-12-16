@@ -16,19 +16,14 @@ solve_csp([Var|RestVars],Constraints) :-
   bind_var(Var,Constraints), %Dann Variable mit konkretem Wert belegen
   solve_csp(NewRestVars,Constraints).
 
-/* Belegt eine variable in einem Constraint-netz mit dem erstbesten wert aus
-   seiner Domäne. */
-bind_var(Variable,Constraints) :-
-  Constraints =.. UnivConstraints,
-  setof(V,(
-  ( member([_,V,_],UnivConstraints);member([_,_,V],UnivConstrains))
-    ,V == Variable
-   ), AllOccurrencesOfV),
-  getDomain(Variable,Dom),
-  member(Variable,Dom),  %alternativ Dom = [Variable|_]
-  AllOccurrencesOfV = [AnyV|_],
-  Variable = V
+/* Belegt eine variable (mittels unfikation) in einem Constraint-netz mit dem
+   erstbesten wert aus seiner Domäne. */
+bind_var(Variable,_Constraints) :-
+  Variable = v(Var):Dom,
+  memberchk(Var,Dom)  %alternativ Dom = [Variable|_]
   .
+  /*Warum funktioniert dieser Code? Weil Var und Constraints im gleichen Scope
+    sind und damit die Unifikation das berücksichtigt */
 
 
 
@@ -104,7 +99,7 @@ reviseHelp(Constraint,[HeadDomI|RestDomI],DomJ,[HeadNewDomI|RestNewDomI],Delete)
   reviseHelp(Constraint,RestDomI,DomJ,RestNewDomI,Delete).
 reviseHelp(Constraint,[_HeadDomI|RestDomI],DomJ,NewDomI,Delete) :-
   Delete = true,
-  revise(Constraint,RestDomI,DomJ,NewDomI,Delete).
+  reviseHelp(Constraint,RestDomI,DomJ,NewDomI,Delete).
    
 
 getDomain(Variable,VarsAndDoms,Domain) :- 
