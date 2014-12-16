@@ -16,6 +16,21 @@ solve_csp([Var|RestVars],Constraints) :-
   bind_var(Var,Constraints), %Dann Variable mit konkretem Wert belegen
   solve_csp(NewRestVars,Constraints).
 
+/* Belegt eine variable in einem Constraint-netz mit dem erstbesten wert aus
+   seiner Domäne. */
+bind_var(Variable,Constraints) :-
+  Constraints =.. UnivConstraints,
+  setof(V,(
+  ( member([_,V,_],UnivConstraints);member([_,_,V],UnivConstrains))
+    ,V == Variable
+   ), AllOccurrencesOfV),
+  getDomain(Variable,Dom),
+  member(Variable,Dom),  %alternativ Dom = [Variable|_]
+  AllOccurrencesOfV = [AnyV|_],
+  Variable = V
+  .
+
+
 
 /*  !!!
 TODO: Dafür sorgen, dass die modifizierten domänen zurückgegeben werden
@@ -85,7 +100,7 @@ revise(Constraint,Vi,Vj,VarsAndDoms,NewVarsAndDoms,Delete):-
 reviseHelp(Constraint,[],DomJ,[],false).
 reviseHelp(Constraint,[],DomJ,[],true).
 reviseHelp(Constraint,[HeadDomI|RestDomI],DomJ,[HeadNewDomI|RestNewDomI],Delete) :-
-  bagof(SupportVar,(member(SupportVar,DomJ),call(Constraint,HeadDomI,SupportVar),_SupportingVars),!,
+  bagof(SupportVar,(member(SupportVar,DomJ),call(Constraint,HeadDomI,SupportVar)),_SupportingVars),!,
   reviseHelp(Constraint,RestDomI,DomJ,RestNewDomI,Delete).
 reviseHelp(Constraint,[_HeadDomI|RestDomI],DomJ,NewDomI,Delete) :-
   Delete = true,
@@ -117,6 +132,17 @@ test(checkEmpty) :-
   
 test(checkEmpty) :- 
   checkEmpty([],true).
+  
+test(bind_var) :-
+  Constraints = [foo(X,Y)],
+  bind_var(v(X):[1,2,3],Constraints),
+  Constraints = [foo(1,Y)].
+
+test(bind_var) :-
+  Constraints = [foo(X,Y),foo(Z,X)],
+  bind_var(v(X):[1,2,3],Constraints),
+  Constraints = [foo(1,Y),foo(Z,1)].
+  
   
 :- end_tests('SolverTopLevel').
    
