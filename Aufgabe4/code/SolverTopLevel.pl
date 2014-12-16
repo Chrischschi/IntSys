@@ -94,7 +94,7 @@ revise(Constraint,Vi,Vj,VarsAndDoms,NewVarsAndDoms,Delete):-
   .
 reviseHelp(Constraint,[],DomJ,[],false).
 reviseHelp(Constraint,[],DomJ,[],true).
-reviseHelp(Constraint,[HeadDomI|RestDomI],DomJ,[HeadNewDomI|RestNewDomI],Delete) :-
+reviseHelp(Constraint,[HeadDomI|RestDomI],DomJ,[HeadDomI|RestNewDomI],Delete) :-
   bagof(SupportVar,(member(SupportVar,DomJ),call(Constraint,HeadDomI,SupportVar)),_SupportingVars),!,
   reviseHelp(Constraint,RestDomI,DomJ,RestNewDomI,Delete).
 reviseHelp(Constraint,[_HeadDomI|RestDomI],DomJ,NewDomI,Delete) :-
