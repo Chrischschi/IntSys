@@ -1,0 +1,5 @@
+1. Rufe AC3-LA mit allen Constraints auf. ac3_la(Q,Consistent,NextVars
+2. wenn es eine variable mit mehreren werten gibt -> Setze diese Variable testweise, var_set = true. 
+3. Rufe wieder AC3-La auf, mit den constraints, die an der variable beteiligit sind.
+4. wenn var_set == true -> Goto 2. 
+5. End.

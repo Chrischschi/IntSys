@@ -66,7 +66,7 @@ ac3la_while(Q,Consistent,NextVars,UnivArcs,_,RetConsistent) :-
   Q = [[P,Vk,Vm]|RestQ],  % eventuell durch lists:select/2 ersetzen
   % 5. "if REVISE(Vk,Vm) then"
   revise(P,Vk,Vm,NextVars,ChangedNextVars,WasRevised),
-  ( WasRevised -> 
+  ( WasRevised ->
     % 6. "Q <- Q union {(Vi,Vk) such that (Vi,Vk) in arcs(G),i#k,i#m,i>cv}"
     setof([P,Vi,Vk],(member([P,Vi,Vk],UnivArcs),Vi \== Vk, Vi \== Vm, 
      member(v(Vi):_DVi,ChangedNextVars)
