@@ -59,7 +59,7 @@ ac3la_while(_,false,ChangedNextVars,_,ChangedNextVars,false).
 /*  !!!
 TODO: Dafür sorgen, dass die modifizierten domänen zurückgegeben werden
     !!! */
-ac3la_while(Q,Consistent,NextVars,UnivArcs,ChangedNextVars,RetConsistent) :-
+ac3la_while(Q,Consistent,NextVars,UnivArcs,_,RetConsistent) :-
   % 4. "select and delete any arc (Vk,Vm) from Q"; 
   % Statt select einfach das vorderste element aus Q nehmen. 
   % Statt delete einfach den Rest von Q nehmen. 
