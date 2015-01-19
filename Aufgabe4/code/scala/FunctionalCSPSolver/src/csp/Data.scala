@@ -26,7 +26,7 @@ object Data {
 
     val variablesNew = for {
       (x,currDomain) <- variables
-    } yield updatedDomain_(name, currDomain,newDomain, name == x)
+    } yield updatedDomain_(x, currDomain,newDomain, name == x)
 
 
     variablesNew

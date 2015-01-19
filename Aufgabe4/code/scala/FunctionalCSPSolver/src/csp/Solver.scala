@@ -18,8 +18,8 @@ object Solver {
     val withoutUnary = Algorithms.nodeConsistency(net)
     println(s"Nach Knotenkonsistenz: $withoutUnary" )
     //2. einmal AC3-LA aufrufen
-    val (prunedFirstTime,_) = Algorithms.arcConsistency3LookAhead(withoutUnary,withoutUnary.variables)
-    println(s"Nach erstem aufruf von AC3-LA: $prunedFirstTime")
+    val (prunedFirstTime,consistent) = Algorithms.arcConsistency3LookAhead(withoutUnary,withoutUnary.variables)
+    println(s"Nach erstem aufruf von AC3-LA: $prunedFirstTime, consistent = $consistent")
     //3. in die backtracking-schleife einsteigen
     solve_(prunedFirstTime,List[(Symbol, List[Int])](),prunedFirstTime.variables)
   }

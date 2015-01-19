@@ -12,7 +12,7 @@ object Main {
 
     val solved = Solver.solve(einstein)
 
-    println(solved)
+    println(s"lösung: $solved")
   }
 
 }

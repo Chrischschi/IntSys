@@ -14,7 +14,7 @@ object EinsteinModel {
         'daene,'deutscher,'brite,'schwede,'norweger,
         'rot,'weiß,'blau,'grün,'gelb,
         'hund,'fisch,'pferd,'katze,'vogel,
-        'dunhill,'pallmall,'marlboro,'rothmanns,
+        'dunhill,'pallmall,'marlboro,'rothmanns,'winfield,
         'milch,'tee,'kaffee,'bier,'wasser
       )
     } yield (name,List(1,2,3,4,5))
