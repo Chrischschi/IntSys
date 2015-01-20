@@ -11,7 +11,7 @@ object Algorithms {
   def arcConsistency3LookAhead(net: ConstraintNet, vars: Vars): (ConstraintNet,Boolean) = {
     val currVar :: restVars = vars
     val q = getArcs(net, currVar._1, restVars)
-    ac3la_while(q, net, vars, true)
+    ac3la_while(q, net, vars, consistent = true)
   }
 
   def revise(net: ConstraintNet, arc: (Symbol, Symbol, List[Constraint])): (ConstraintNet, Boolean) = {
