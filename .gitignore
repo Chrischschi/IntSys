@@ -16,5 +16,6 @@ Thumbs.db
 /out/ 
 .idea/
 *.iml
-
+Aufgabe4/code/scala/FunctionalCSPSolver/.idea/
+/home/christian/git/IntSys/Aufgabe4/code/scala/FunctionalCSPSolver/*.iml
 
