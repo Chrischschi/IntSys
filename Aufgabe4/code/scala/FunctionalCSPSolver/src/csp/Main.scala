@@ -3,7 +3,7 @@ package csp
 import csp.Solver.ConstraintNet
 
 /**
- * Created by christian on 17.01.15.
+ * Created on 17.01.15.
  */
 object Main {
 

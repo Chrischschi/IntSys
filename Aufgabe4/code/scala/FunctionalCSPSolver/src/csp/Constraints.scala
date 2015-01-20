@@ -1,7 +1,7 @@
 package csp
 
 /**
- * Created by christian on 12.01.15.
+ * Created on 12.01.15.
  */
 object Constraints {
 
