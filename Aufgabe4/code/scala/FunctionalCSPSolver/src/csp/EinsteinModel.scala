@@ -61,7 +61,7 @@ object EinsteinModel {
     ('blau,'gelb,List(Neq)),
 
     ('grün,'rot,List(Neq)),
-    ('grün,'weiß,List(Neq,LeftNeighbour)),
+    ('grün,'weiß,List(Neq,RightNeighbour)),
     ('grün,'blau,List(Neq)),
     ('grün,'gelb,List(Neq)),
 
