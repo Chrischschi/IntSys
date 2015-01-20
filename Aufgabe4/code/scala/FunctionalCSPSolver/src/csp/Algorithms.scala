@@ -20,12 +20,12 @@ object Algorithms {
         val (s, _) = t
         s == source
     }
-    val List((_,sourceTarget)) = net.variables.filter { t =>
+    val List((_,targetDomain)) = net.variables.filter { t =>
        val (dest, _) = t
        dest == target
     }
 
-    val (accumulator, delete) = reviseForEachX(srcDomain, sourceTarget, constraints)
+    val (accumulator, delete) = reviseForEachX(srcDomain, targetDomain, constraints)
 
     val newVars = Data.updatedDomain(source, accumulator, net.variables)
 

@@ -27,6 +27,16 @@ object Constraints {
   case object RightNeighbour extends Constraint
 
 
+  //weitere constraints
+  case object LessThan extends Constraint
+
+  case object GreaterThan extends Constraint
+
+  // l*factor = r
+  case class Mul(factor: Int) extends Constraint
+
+
+
   def evalConstraint(x: Int, y: Int, constraint: Constraint): Boolean = constraint match {
       case Eq => x == y
       case EqToVal(value) => x == value
@@ -34,6 +44,9 @@ object Constraints {
       case Neighbour => math.abs(x - y) == 1
       case LeftNeighbour => x - y == 1
       case RightNeighbour => y - x == 1
+      case LessThan => x < y
+      case GreaterThan => x > y
+      case Mul(factor) => x * factor == y
       case _ => throw new IllegalArgumentException("Unknown Constraint.")
     }
 
