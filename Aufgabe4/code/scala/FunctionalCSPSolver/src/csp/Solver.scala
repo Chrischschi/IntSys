@@ -47,14 +47,14 @@ object Solver {
 
       val cspVarNew = (name,alternativeVarBindings)
       if (consistent)
-        solve__(solve_(constraintNetPruned,restVars),netWithAlternatives,cspVarNew,restVars)
+        trySolve(solve_(constraintNetPruned,restVars),netWithAlternatives,cspVarNew,restVars)
       else
         solve_(netWithAlternatives, List(cspVarNew) ++ restVars)
     }
 
   }
 
-  private def solve__(solutionPair: (ConstraintNet,Boolean), nextNet: ConstraintNet, cNewVar: (Symbol,List[Int]),
+  private def trySolve(solutionPair: (ConstraintNet,Boolean), nextNet: ConstraintNet, cNewVar: (Symbol,List[Int]),
                        restV: Vars) =
   {
     if(solutionPair._2 == true)
