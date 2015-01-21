@@ -21,10 +21,10 @@ object Solver {
     val (prunedFirstTime,consistent) = Algorithms.arcConsistency3LookAhead(withoutUnary,withoutUnary.variables)
     println(s"Nach erstem aufruf von AC3-LA: $prunedFirstTime, consistent = $consistent")
     //3. in die backtracking-schleife einsteigen
-    solve_(prunedFirstTime,List[(Symbol, List[Int])](),prunedFirstTime.variables)
+    solve_(prunedFirstTime,prunedFirstTime.variables)
   }
 
-  private def solve_(net: ConstraintNet, pastVars: Vars, remainingVars: Vars): (ConstraintNet,Boolean) = {
+  private def solve_(net: ConstraintNet, remainingVars: Vars): (ConstraintNet,Boolean) = {
     if(remainingVars.isEmpty) {
       //constraint-netz gelöst, alle variablen belegt
       (net, true)
@@ -47,20 +47,20 @@ object Solver {
 
       val cspVarNew = (name,alternativeVarBindings)
       if (consistent)
-        solve__(solve_(constraintNetPruned, pastVars ++ List(currentVar),restVars),netWithAlternatives,cspVarNew,pastVars,restVars)
+        solve__(solve_(constraintNetPruned,restVars),netWithAlternatives,cspVarNew,restVars)
       else
-        solve_(netWithAlternatives, pastVars, List(cspVarNew) ++ restVars)
+        solve_(netWithAlternatives, List(cspVarNew) ++ restVars)
     }
 
   }
 
   private def solve__(solutionPair: (ConstraintNet,Boolean), nextNet: ConstraintNet, cNewVar: (Symbol,List[Int]),
-                      pastVars: Vars, restV: Vars) =
+                       restV: Vars) =
   {
     if(solutionPair._2 == true)
       solutionPair
     else
-      solve_(nextNet, pastVars, List(cNewVar) ++ restV)
+      solve_(nextNet, List(cNewVar) ++ restV)
   }
 
 
